@@ -1,9 +1,12 @@
 LicenseManagement::Application.routes.draw do
   resources :users
+  resources :sessions
 
+  root :to => 'sessions#new'
 
-  root :to => 'users#new'
-
+  match '/signup',  to: 'users#new',            via: 'get'
+  match '/signin',  to: 'sessions#new',         via: 'get'
+  match '/signout', to: 'sessions#destroy',     via: 'delete'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
