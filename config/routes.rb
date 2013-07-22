@@ -3,6 +3,13 @@ LicenseManagement::Application.routes.draw do
   resources :sessions
 
   root :to => 'sessions#new'
+  
+  resources :keys do 
+    collection do
+      get :generate_keys,:display_keys
+
+    end
+  end
 
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'

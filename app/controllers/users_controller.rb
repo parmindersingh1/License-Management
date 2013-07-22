@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
  before_filter :signed_in_user ,:except => [:new,:create]
   #before_action :signed_in_user, only: [:edit, :update]
   #before_action :correct_user,   only: [:edit, :update]
@@ -28,9 +29,9 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
-    
+
     @user = User.new
-  
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
@@ -86,8 +87,7 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
-  
+ 
   private
 
     def user_params
@@ -105,4 +105,25 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
     end
+
+  def generate_keys
+    @error=false
+    @generated_list=[]
+    2.times do
+      @list=SecureRandom.hex(8)
+      @generated_list<<@list      
+      @key=Key.new(:generated_key => @list)
+      if @key.save
+
+        else
+        @error=true
+      end
+    end
+    unless @error
+      render :text=> "error"
+    else
+      render :text=> "created"
+    end
+  end
+
 end
