@@ -1,6 +1,12 @@
 LicenseManagement::Application.routes.draw do
   resources :users
+   
+  resources :keys do 
+    collection do
+      get :generate_keys,:display_keys
 
+    end
+  end
 
   root :to => 'users#new'
 

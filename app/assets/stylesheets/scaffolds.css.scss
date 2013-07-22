@@ -38,15 +38,15 @@ div {
 #notice {
   color: green;
 }
-
+/*
 .field_with_errors {
   padding: 2px;
   background-color: red;
   display: table;
-}
+}*/
 
 #error_explanation {
-  width: 450px;
+  width: auto;
   border: 2px solid red;
   padding: 7px;
   padding-bottom: 0;
@@ -61,6 +61,7 @@ div {
     margin-bottom: 0px;
     background-color: #c00;
     color: #fff;
+    line-height: 20px;
   }
   ul li {
     font-size: 12px;
