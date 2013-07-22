@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  layout false, :only => [:new]
+  layout 'signin', :only => [:new]
   # GET /users
   # GET /users.json
   def index
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   def new
     
     @user = User.new
-
+  
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
