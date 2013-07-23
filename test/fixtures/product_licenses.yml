@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  license_key: MyString
+  calculated_key: MyString
+  email: MyString
+  machine_id: MyString
+  expire_date: 2013-07-23
+  reset_counter: 
+  allow_regeneration: false
+  is_assigned: false
+  is_created: false
+  is_deleted: false
+  created_by: MyString
+  updated_by: MyString
+  updated_date: 2013-07-23
+
+two:
+  license_key: MyString
+  calculated_key: MyString
+  email: MyString
+  machine_id: MyString
+  expire_date: 2013-07-23
+  reset_counter: 
+  allow_regeneration: false
+  is_assigned: false
+  is_created: false
+  is_deleted: false
+  created_by: MyString
+  updated_by: MyString
+  updated_date: 2013-07-23

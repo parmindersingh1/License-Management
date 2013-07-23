@@ -1,0 +1,46 @@
+<h1>Product Licenses</h1>
+<%= will_paginate @product_licenses %>
+<table class="table table-striped table-bordered table-condensed">
+  <tr>
+    <th>License key</th>
+    <th>Calculated key</th>
+    <th>Email</th>
+    <th>Machine id</th>
+    <th>Expiry date</th>
+    <!-- <th>Reset counter</th>
+    <th>Allow regeneration</th> -->
+    <th>Is assigned</th>
+    <th>Is created</th>
+    <th>Is deleted</th>
+    <!-- <th>Created by</th>
+    <th>Updated by</th>
+    <th>Updated date</th>
+    -->
+  </tr>
+
+<% @product_licenses.each do |product_license| %>
+  <tr>
+    <td><%= product_license.license_key %></td>
+    <td><%= product_license.calculated_key %></td>
+    <td><%= product_license.email %></td>
+    <td><%= product_license.machine_id %></td>
+    <td><%= product_license.expiry_date %></td>
+    <!-- <td><%= product_license.reset_counter %></td>
+    <td><%= product_license.allow_regeneration %></td> -->
+    <td><%= product_license.is_assigned %></td>
+    <td><%= product_license.is_created %></td>
+    <td><%= product_license.is_deleted %></td>
+    <!-- <td><%= product_license.created_by %></td>
+    <td><%= product_license.updated_by %></td>
+    <td><%= product_license.updated_date %></td>    --> 
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<div id="generate_keys_div" >	
+    <button id="generate_button" class="btn  btn-primary"%>Generate Keys</button>
+    <input type="text" id="keys_count"  placeholder="No.s">   
+  
+</div>

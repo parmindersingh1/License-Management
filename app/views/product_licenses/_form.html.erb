@@ -1,0 +1,69 @@
+<%= form_for(@product_license) do |f| %>
+  <% if @product_license.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product_license.errors.count, "error") %> prohibited this product_license from being saved:</h2>
+
+      <ul>
+      <% @product_license.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :license_key %><br />
+    <%= f.text_field :license_key %>
+  </div>
+  <div class="field">
+    <%= f.label :calculated_key %><br />
+    <%= f.text_field :calculated_key %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :machine_id %><br />
+    <%= f.text_field :machine_id %>
+  </div>
+  <div class="field">
+    <%= f.label :expiry_date %><br />
+    <%= f.date_select :expire_date %>
+  </div>
+  <div class="field">
+    <%= f.label :reset_counter %><br />
+    <%= f.text_field :reset_counter %>
+  </div>
+  <div class="field">
+    <%= f.label :allow_regeneration %><br />
+    <%= f.check_box :allow_regeneration %>
+  </div>
+  <div class="field">
+    <%= f.label :is_assigned %><br />
+    <%= f.check_box :is_assigned %>
+  </div>
+  <div class="field">
+    <%= f.label :is_created %><br />
+    <%= f.check_box :is_created %>
+  </div>
+  <div class="field">
+    <%= f.label :is_deleted %><br />
+    <%= f.check_box :is_deleted %>
+  </div>
+  <div class="field">
+    <%= f.label :created_by %><br />
+    <%= f.text_field :created_by %>
+  </div>
+  <div class="field">
+    <%= f.label :updated_by %><br />
+    <%= f.text_field :updated_by %>
+  </div>
+  <div class="field">
+    <%= f.label :updated_date %><br />
+    <%= f.date_select :updated_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

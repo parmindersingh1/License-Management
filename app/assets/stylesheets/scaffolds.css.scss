@@ -37,6 +37,25 @@ div {
 
 #notice {
   color: green;
+   border: 1px solid ;
+    height: 20px;
+    margin-bottom: 10px;
+     border-radius: 3px 3px 3px 3px;
+    
+}
+#error_notice {
+    border: 1px solid ;
+    color: red;
+    height: 20px;
+    margin-bottom: 10px;
+     border-radius: 3px 3px 3px 3px;
+    
+}
+#close_notice { 
+    float: right;
+    margin-right: 2px;
+    margin-top: -4px;
+    cursor: pointer;
 }
 #error_notice{
   color: red;

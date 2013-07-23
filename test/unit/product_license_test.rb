@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class KeysControllerTest < ActionController::TestCase
+class ProductLicenseTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
