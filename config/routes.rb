@@ -6,7 +6,7 @@ LicenseManagement::Application.routes.draw do
   
   resources :keys do 
     collection do
-      get :generate_keys,:display_keys
+      get :generate_keys, :display_keys
 
     end
   end

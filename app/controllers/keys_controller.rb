@@ -10,9 +10,11 @@ class KeysController < ApplicationController
   end
   
   def generate_keys
+    puts "-------#{params[:keys_count]}"
+    count=params[:keys_count]
     @error=false
     @generated_list=[]
-    2.times do
+    count.to_i.times do
       @list=SecureRandom.hex(8)
       @generated_list<<@list      
       @key=Key.new(:generated_key => @list)
