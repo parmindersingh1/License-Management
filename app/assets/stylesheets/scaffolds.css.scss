@@ -38,6 +38,14 @@ div {
 #notice {
   color: green;
 }
+#error_notice{
+  color: red;
+}
+#forgot_password a{
+  background-color:#ffffff;
+  color: #08c;
+  float: right;
+}
 /*
 .field_with_errors {
   padding: 2px;
@@ -67,4 +75,10 @@ div {
     font-size: 12px;
     list-style: square;
   }
+ 
+}
+#outer_block {
+color: red;
+border: 1px solid;
+border-radius: 5px;
 }

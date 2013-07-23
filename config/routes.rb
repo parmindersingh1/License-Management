@@ -1,5 +1,9 @@
 LicenseManagement::Application.routes.draw do
-  resources :users
+  resources :users do
+    collection do
+      get :forgot_password
+    end
+  end
   resources :sessions
 
   root :to => 'sessions#new'
