@@ -1,4 +1,11 @@
 LicenseManagement::Application.routes.draw do
+
+  resources :users do
+    collection do
+      get :forgot_password
+    end
+  end
+
   resources :product_licenses do
     collection do
       get :generate_keys, :license_report
@@ -8,9 +15,6 @@ LicenseManagement::Application.routes.draw do
 
 
   resources :products 
-
-
-  resources :users
   resources :sessions
 
   root :to => 'sessions#new'

@@ -9,8 +9,10 @@
           <a class="brand" href="#">License Management</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="/product_licenses">Product Licenses</a></li>            
+
+              <li class="active"><a href="<%=current_user.id%>">Home</a></li>
+              <li><a href="/product_licenses">Product Keys</a></li>
+
               <li><a href="#contact">Contact</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
@@ -31,6 +33,9 @@
                   	<li><%= link_to "Sign out", signout_path, method: "delete"%></li>
                   <%else%>
                   	<li><a href="/sessions/new">Sign In</a></li>
+                  <%end%>
+                  <%if current_user.admin?%>
+                  <li><%= link_to  "Add New User", signup_path%></li>
                   <%end%>
             </ul>
             

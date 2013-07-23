@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       redirect_back_or user
       # redirect_to => :controller=>"users", :action=> "show"
     else
-     flash[:notice] = 'Invalid email/password combination' # Not quite right!
+     flash.now[:notice] = 'Invalid email/password combination' # Not quite right!
      render 'new'
     end
     
