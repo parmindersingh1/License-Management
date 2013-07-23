@@ -10,6 +10,8 @@ gem 'execjs'
 gem 'therubyracer'
 gem 'mysql2'
 gem 'bcrypt-ruby', '3.0.1'
+gem 'will_paginate'
+gem 'spreadsheet'
 
 # Gems used only for assets and not required
 # in production environments by default.

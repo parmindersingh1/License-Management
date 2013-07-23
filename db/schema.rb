@@ -11,12 +11,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130722110821) do
+ActiveRecord::Schema.define(:version => 20130723061226) do
 
-  create_table "keys", :force => true do |t|
-    t.string   "generated_key"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+  create_table "product_licenses", :force => true do |t|
+    t.string   "license_key"
+    t.string   "calculated_key"
+    t.string   "email"
+    t.string   "machine_id"
+    t.date     "expiry_date"
+    t.integer  "reset_counter",      :default => 0
+    t.boolean  "allow_regeneration", :default => false
+    t.boolean  "is_assigned",        :default => false
+    t.boolean  "is_created",         :default => false
+    t.boolean  "is_deleted",         :default => false
+    t.string   "created_by"
+    t.string   "updated_by"
+    t.date     "updated_date"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+  end
+
+  create_table "products", :force => true do |t|
+    t.string   "name"
+    t.string   "version"
+    t.date     "release_date"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "users", :force => true do |t|

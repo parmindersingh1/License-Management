@@ -1,15 +1,21 @@
 LicenseManagement::Application.routes.draw do
+  resources :product_licenses do
+    collection do
+      get :generate_keys, :license_report
+      
+    end
+  end
+
+
+  resources :products 
+
+
   resources :users
   resources :sessions
 
   root :to => 'sessions#new'
   
-  resources :keys do 
-    collection do
-      get :generate_keys, :display_keys
-
-    end
-  end
+ 
 
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'

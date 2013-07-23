@@ -34,3 +34,8 @@ body {
   @extend .control-group;
   @extend .error;
 }
+#keys_count {
+  width:30px;	
+  margin: 0;
+}
+}
