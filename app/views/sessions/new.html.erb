@@ -2,7 +2,7 @@
 <%= form_for(:session, url: sessions_path,:html=>{:class=>'form-signin'})  do |f|%>
 <h2 class="form-signin-heading">Please Sign in</h2>
 
-  <div id="error_notice"><%= notice %><p id="close_notice">x</p></div>		
+  <div class="alert alert-error" style="display: none"> <a href="#" class="close">&times;</a><%= notice %></div>		
 
   <div class="field"> 
     <%= f.text_field :email, :class => "input-block-level",:placeholder=>"Email address"%>

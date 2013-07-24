@@ -1,11 +1,13 @@
 $(document).on("click", "#generate_button", function() {
 	var keys_count = $("#keys_count").val();
-	if (keys_count >100) {
+	if (keys_count > 100) {
 		alert("greater");
 
 	} else {
-		$.get("/product_licenses/generate_keys",{keys_count:keys_count}, function(data) {
-            location.reload();
+		$.get("/product_licenses/generate_keys", {
+			keys_count : keys_count
+		}, function(data) {
+			location.reload();
 		});
 
 	}
@@ -17,21 +19,30 @@ $(document).on("click", "#generate_button", function() {
 // });
 // });
 $(document).ready(function() {
-    $("#keys_count").keydown(function(event) {
-        // Allow: backspace, delete, tab, escape, and enter
-        if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 || 
-             // Allow: Ctrl+A
-            (event.keyCode == 65 && event.ctrlKey === true) || 
-             // Allow: home, end, left, right
-            (event.keyCode >= 35 && event.keyCode <= 39)) {
-                 // let it happen, don't do anything
-                 return;
-        }
-        else {
-            // Ensure that it is a number and stop the keypress
-            if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
-                event.preventDefault(); 
-            }   
-        }
-    });
+	$("#keys_count").keydown(function(event) {
+		// Allow: backspace, delete, tab, escape, and enter
+		if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 ||
+		// Allow: Ctrl+A
+		(event.keyCode == 65 && event.ctrlKey === true) ||
+		// Allow: home, end, left, right
+		(event.keyCode >= 35 && event.keyCode <= 39)) {
+			// let it happen, don't do anything
+			return;
+		} else {
+			// Ensure that it is a number and stop the keypress
+			if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
+				event.preventDefault();
+			}
+		}
+	});
 });
+
+$(document).on("submit", "#date_submit", function(e) {
+	if (($('#alert').is(':visible')) || ($("#date-start").val() == "" || $("#date-end").val() == "")) {
+		e.preventDefault();
+		$('#alert').show().find('strong').text('Start Date or End Date is Empty');	
+	} else {
+		$('#myModal').modal('hide');
+
+	}
+}); 
