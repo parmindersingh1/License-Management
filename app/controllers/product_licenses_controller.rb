@@ -104,7 +104,23 @@ class ProductLicensesController < ApplicationController
   end
 
   def license_report
+    puts "--++++++++--------#{params}"
     @product_licenses=ProductLicense.all
+    respond_to do |format|
+      format.html
+      format.rss
+      format.xls {
+        send_data(licenses_report(@product_licenses), :type=>"application/ms-excel", :filename => "report.xls",:orientation=>"landscape",:margin=>{:top=>0.25,:bottom=>0.25,:left=>0.25,:header=>0.05})
+      }
+    end
+  end
+  
+  def date_range_license_report
+    puts "----------#{params}"
+    @selected_date1=params[:start_date][:field].to_date
+    @selected_date2=params[:end_date][:field].to_date
+    puts "#{@selected_date1 } ----------------#{@selected_date2 }"
+    @product_licenses=ProductLicense.where(:created_at => @selected_date1.beginning_of_day..@selected_date2.end_of_day)
     respond_to do |format|
       format.html
       format.rss

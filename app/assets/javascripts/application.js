@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap.min
-//=require bootstrap-dropdown
+//= require bootstrap-dropdown
+//= require bootstrap-datepicker
 //= require_tree .

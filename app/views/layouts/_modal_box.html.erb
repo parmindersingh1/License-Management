@@ -1,0 +1,40 @@
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 
+
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Date Range</h3>
+  </div>
+  
+
+	<%=form_for :product_licenses, :url=>{:controller=>"product_licenses",:action=>"date_range_license_report", :format=>"xls"},:html=>{ :id=>"date_submit"} do |form|%>	
+  <div class="modal-body" >	 
+  	<div class="alert alert-error" id="alert" style="display: none">  		
+    <strong>Oh snap!</strong>
+    </div>
+<table class="table">
+    <thead>
+        <tr>
+          <th>
+              Start date
+              <%=text_field :start_date,:field,:id=>"date-start", :placeholder=>"dd/mm/yyyy"%>
+              <!-- <input type="text" id="date-start"  value="" placeholder="dd/mm/yyyy"> -->
+          <th>
+              End date
+              <%=text_field :end_date,:field,:id=>"date-end", :placeholder=>"dd/mm/yyyy"%>
+              <!-- <input type="text" id="date-end" data-date-format="dd/mm/yyyy" value="" placeholder="dd/mm/yyyy"> -->
+          </th>
+        </tr>
+    </thead>
+   
+</table>  	
+  	
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <%=form.submit "submit", :class=>"btn btn-primary"%>
+    <!-- <input type="button" id="date_submit" class="btn btn-primary" value="submit"> -->
+  </div>
+  <%end%>
+</div>
