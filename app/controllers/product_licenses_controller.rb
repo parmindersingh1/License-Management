@@ -1,6 +1,6 @@
 class ProductLicensesController < ApplicationController
   require 'securerandom'
- 
+  before_filter :signed_in_user
   # GET /product_licenses
   # GET /product_licenses.json
   def index

@@ -2,7 +2,7 @@ LicenseManagement::Application.routes.draw do
 
   resources :users do
     collection do
-      get :forgot_password
+      get :forgot_password,:change_password
     end
   end
 
@@ -15,7 +15,12 @@ LicenseManagement::Application.routes.draw do
 
 
   resources :products 
-  resources :sessions
+  
+  resources :sessions do 
+    collection do
+      get :recovery,:change_password
+    end
+  end
 
   root :to => 'sessions#new'
   

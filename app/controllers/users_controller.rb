@@ -81,25 +81,10 @@ class UsersController < ApplicationController
   end
   
   def forgot_password
-    # puts "the params are #{params}"
-    # unless params[:email].nil?
-      # @user=User.find_by_email(params[:email][:id])
-      # if @user.nil?
-        # flash.now[:error]="User not found for this email"
-      # else
-        # chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
-        # newpass = ""
-        # 1.upto(20) { |i| newpass << chars[rand(chars.size-1)] }
-        # @subject = "Reset password"
-        # @body = "Your new password is "+ newpass
-         # if @user.update_attributes(:password => newpass)
-           # UserMailer.registration_confirmation(@user,@subject,@body).deliver
-           # flash.now[:notice]="Password reset successfully please check your mail"
-         # end
-      # end
-      # else
-        # flash.now[:error]="Please enter your email..."
-    # end
+    
+  end
+  def change_password
+    
   end
  
   private
