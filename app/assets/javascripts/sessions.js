@@ -1,10 +1,11 @@
 $(document).on("click", "#reset_password", function(event) {
+	    $(this).button('loading');       
+        
 	var login_email = $('#email_id').val();
 
 	if(!login_email || login_email.length == 0) {
 		$('#outer_block').empty();
 		$('.alert').show();
-
 		$('#outer_block').html('<a class="close"  href="#">&times;</a>Please enter your email address for reset password');
 
 	}else{
@@ -13,14 +14,13 @@ $(document).on("click", "#reset_password", function(event) {
 		'login_email' : login_email,
 
 	}, function(data) {
-		if(data.valid) {
-			alert(data.notice);
+		 $("#reset_password").button('reset');
+		if(data.valid) {			
 			$('#outer_block').empty();
 			$('.alert').show();
 			$('#outer_block').html('<a class="close"  href="#">&times;</a>'+ data.notice).removeClass("alert-error").addClass("alert-success");
 		}
-		else{
-			alert(data.notice);
+		else{			
 			$('#outer_block').empty();
 			$('.alert').show();
 			$('#outer_block').html('<a class="close"  href="#">&times;</a>'+ data.notice).removeClass("alert-success").addClass("alert-error");

@@ -8,7 +8,7 @@ LicenseManagement::Application.routes.draw do
 
   resources :product_licenses do
     collection do
-      get :generate_keys, :license_report 
+      get :generate_keys, :license_report, :regeneration_report, :unassigned_report, :deleted_report
       post :date_range_license_report
       
     end

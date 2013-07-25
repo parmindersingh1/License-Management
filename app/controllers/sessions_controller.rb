@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   layout "signin" ,:only=>[:new,:create]
-  before_filter :signed_in_user, :only=>[:recovery,:change_password]
+  before_filter :signed_in_user, :only=>[:change_password]
   def new
     
   end
@@ -38,8 +38,14 @@ class SessionsController < ApplicationController
         @subject = "Reset password"
         @body = "Your new password is "+ newpass
         if @user.update_attributes(:password => newpass)
+          begin
           UserMailer.registration_confirmation(@user,@subject,@body).deliver
+        rescue Exception => exec
+          render :json => {:valid => false, :notice => "Password has been reset but email nit sent."}
+       else
           render :json => {:valid => true, :notice => "Password has been reset successfully. Please check mail for new password."}
+       end
+       
         end
       end
     else

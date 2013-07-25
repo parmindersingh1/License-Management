@@ -1,23 +1,4 @@
-$(document).on("click", "#generate_button", function() {
-	var keys_count = $("#keys_count").val();
-	if (keys_count > 100) {
-		alert("greater");
 
-	} else {
-		$.get("/product_licenses/generate_keys", {
-			keys_count : keys_count
-		}, function(data) {
-			location.reload();
-		});
-
-	}
-
-});
-// $(document).on("click","#product_keys",function(){
-// $.get("keys/display_keys",function(data){
-//
-// });
-// });
 $(document).ready(function() {
 	$("#keys_count").keydown(function(event) {
 		// Allow: backspace, delete, tab, escape, and enter
@@ -43,6 +24,5 @@ $(document).on("submit", "#date_submit", function(e) {
 		$('#alert').show().find('strong').text('Start Date or End Date is Empty');	
 	} else {
 		$('#myModal').modal('hide');
-
 	}
 }); 
