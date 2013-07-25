@@ -131,7 +131,7 @@ class ProductLicensesController < ApplicationController
     end
   end
   
-  def generate_license_key
+def generate_license_key
     puts "params are #{params}"
     #JSON.parse(params)
     received_key = params[:data][:license_key]
@@ -151,4 +151,39 @@ class ProductLicensesController < ApplicationController
     end 
   end
   
+  def regeneration_report
+    puts "--++++++++--------#{params}"
+    @product_licenses=ProductLicense.where(:allow_regeneration=>true)
+    respond_to do |format|
+      format.html
+      format.rss
+      format.xls {
+        send_data(licenses_report(@product_licenses), :type=>"application/ms-excel", :filename => "report.xls",:orientation=>"landscape",:margin=>{:top=>0.25,:bottom=>0.25,:left=>0.25,:header=>0.05})
+      }
+    end
+  end
+  
+   def unassigned_report
+    puts "--++++++++--------#{params}"
+    @product_licenses=ProductLicense.where(:is_assigned=> true)
+    respond_to do |format|
+      format.html
+      format.rss
+      format.xls {
+        send_data(licenses_report(@product_licenses), :type=>"application/ms-excel", :filename => "report.xls",:orientation=>"landscape",:margin=>{:top=>0.25,:bottom=>0.25,:left=>0.25,:header=>0.05})
+      }
+    end
+  end
+  
+   def deleted_report
+    puts "--++++++++--------#{params}"
+    @product_licenses=ProductLicense.where(:is_deleted=> true)
+    respond_to do |format|
+      format.html
+      format.rss
+      format.xls {
+        send_data(licenses_report(@product_licenses), :type=>"application/ms-excel", :filename => "report.xls",:orientation=>"landscape",:margin=>{:top=>0.25,:bottom=>0.25,:left=>0.25,:header=>0.05})
+      }
+    end
+  end
 end

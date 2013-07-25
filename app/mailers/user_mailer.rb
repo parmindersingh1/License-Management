@@ -7,7 +7,8 @@ class UserMailer < ActionMailer::Base
     #mail(:from=>"saini.pardeep8@gmail.com",:to => "pardeep@ezzie.in",:subject=>"Password reset")
     @user = user
     @url = "http://gmail.com"
-    mail( from: "testing.testing055@gmail.com", to: user.email, subject:"Password Reset",body: body)
+    mail( from: "office.ezzie.com", to: user.email, subject: subject ,body: body)
+
   end
 
 end

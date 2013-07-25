@@ -51,6 +51,5 @@ $(document).on("submit", "#date_submit", function(e) {
 		$('#alert').show().find('strong').text('Start Date or End Date is Empty');	
 	} else {
 		$('#myModal').modal('hide');
-
 	}
 }); 

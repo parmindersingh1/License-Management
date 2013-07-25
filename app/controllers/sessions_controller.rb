@@ -45,7 +45,7 @@ class SessionsController < ApplicationController
             else
               render :json => {:valid => true, :notice => "Password has been reset successfully. Please check mail for new password."}
             end
-            
+    
         end
       end
     else
