@@ -165,7 +165,7 @@ def generate_license_key
   
    def unassigned_report
     puts "--++++++++--------#{params}"
-    @product_licenses=ProductLicense.where(:is_assigned=> true)
+    @product_licenses=ProductLicense.where(:is_assigned=> false)
     respond_to do |format|
       format.html
       format.rss
