@@ -1,6 +1,5 @@
 $(document).on("click", "#reset_password", function(event) {
 	var login_email = $('#email_id').val();
-
 	if(!login_email || login_email.length == 0) {
 		$('#outer_block').empty();
 		$('.alert').show();
@@ -8,19 +7,19 @@ $(document).on("click", "#reset_password", function(event) {
 		$('#outer_block').html('<a class="close"  href="#">&times;</a>Please enter your email address for reset password');
 
 	}else{
-
 	$.getJSON('/sessions/recovery', {
+		
 		'login_email' : login_email,
 
 	}, function(data) {
 		if(data.valid) {
-			alert(data.notice);
+			
 			$('#outer_block').empty();
 			$('.alert').show();
 			$('#outer_block').html('<a class="close"  href="#">&times;</a>'+ data.notice).removeClass("alert-error").addClass("alert-success");
 		}
 		else{
-			alert(data.notice);
+			
 			$('#outer_block').empty();
 			$('.alert').show();
 			$('#outer_block').html('<a class="close"  href="#">&times;</a>'+ data.notice).removeClass("alert-success").addClass("alert-error");
