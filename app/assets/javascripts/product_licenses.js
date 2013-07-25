@@ -53,3 +53,13 @@ $(document).on("submit", "#date_submit", function(e) {
 		$('#myModal').modal('hide');
 	}
 }); 
+
+
+$(document).on("change","#product_licence_name", function(event){
+	var product_id = $(this).val();
+		
+	$.get("/product_licenses/show_licenses",{product_id : product_id},function(data){
+		$("#response_div").empty();
+		$("#response_div").html(data);
+	});
+});

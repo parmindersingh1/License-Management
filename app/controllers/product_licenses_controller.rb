@@ -4,6 +4,7 @@ class ProductLicensesController < ApplicationController
   # GET /product_licenses
   # GET /product_licenses.json
   def index
+    @products = Product.find(:all);
     @product_licenses = ProductLicense.paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
@@ -92,7 +93,7 @@ class ProductLicensesController < ApplicationController
       @list=SecureRandom.hex(8)
       @generated_list<<@list
       @key=ProductLicense.new(:license_key => @list)
-      @key.products_id = params[:product_id]
+      @key.product_id = params[:product_id]
       if @key.save
         @error=false
       end
@@ -185,5 +186,10 @@ def generate_license_key
         send_data(licenses_report(@product_licenses), :type=>"application/ms-excel", :filename => "report.xls",:orientation=>"landscape",:margin=>{:top=>0.25,:bottom=>0.25,:left=>0.25,:header=>0.05})
       }
     end
+  end
+  
+  def show_licenses
+    @product_licenses = ProductLicense.find_all_by_product_id(params[:product_id])
+    render :partial => "license_partial"
   end
 end
