@@ -1,6 +1,6 @@
 class ProductLicensesController < ApplicationController
   require 'securerandom'
-  before_filter :signed_in_user
+  #before_filter :signed_in_user ,:except=> [:generate_license_key]
   # GET /product_licenses
   # GET /product_licenses.json
   def index
@@ -84,22 +84,23 @@ class ProductLicensesController < ApplicationController
   end
 
   def generate_keys
-    puts "-------#{params[:keys_count]}"
+    puts "-------#{params}"
     count=params[:keys_count]
-    @error=false
+    @error=true
     @generated_list=[]
     count.to_i.times do
       @list=SecureRandom.hex(8)
       @generated_list<<@list
       @key=ProductLicense.new(:license_key => @list)
-      unless @key.save
-        @error=true
+      @key.products_id = params[:product_id]
+      if @key.save
+        @error=false
       end
     end
-    unless @error
-      render :text=> "error"
+    if @error
+      render :json=> {:valid=>false, :notice=>"Error in key Generation"}
     else
-      render :text=> "created"
+      render :json=> {:valid=>true, :notice=>"Key Successfully generated"}
     end
   end
 
@@ -129,4 +130,25 @@ class ProductLicensesController < ApplicationController
       }
     end
   end
+  
+  def generate_license_key
+    puts "params are #{params}"
+    #JSON.parse(params)
+    received_key = params[:data][:license_key]
+    @machine_id = params[:data][:machine_id]
+    @email = params[:data][:email]
+    license_key = ProductLicense.find_by_license_key(received_key)
+    unless license_key.nil?
+      if license_key.is_assigned
+        render :json=> {:valid=>false , :message=> "Key already generated for this license key"}
+      else
+        @generated_key = Digest::SHA1.hexdigest(received_key.to_s + @machine_id.to_s)
+        license_key.update_attributes(:calculated_key=>@generated_key,:email=>@email,:machine_id=>@machine_id,:is_assigned=>true,:is_created=>true,:is_deleted=>false)
+        render :json=> {:valid=>true ,:generated_key =>@generated_key,:message=>"key generated key successfully"}
+      end
+    else
+      render :json=> {:valid=>false , :message=> "Key not generated for this license"}
+    end 
+  end
+  
 end

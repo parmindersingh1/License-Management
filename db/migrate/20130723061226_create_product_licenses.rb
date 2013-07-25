@@ -15,6 +15,7 @@ class CreateProductLicenses < ActiveRecord::Migration
       t.string :updated_by
       t.date :updated_date
 
+      t.references :products
       t.timestamps
     end
   end

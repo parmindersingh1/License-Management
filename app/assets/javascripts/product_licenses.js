@@ -1,13 +1,21 @@
 $(document).on("click", "#generate_button", function() {
 	var keys_count = $("#keys_count").val();
-	if (keys_count > 100) {
-		alert("greater");
+	var product_id = $("#prod_id").val();
+	if ((keys_count > 100) || (keys_count < 1) || (keys_count== "")) {
+	
+	$('#alert').show().find('strong').text('key must be between 1 to 100');		
 
 	} else {
-		$.get("/product_licenses/generate_keys", {
-			keys_count : keys_count
+		$.getJSON("/product_licenses/generate_keys", {
+			keys_count : keys_count,
+			product_id : product_id
 		}, function(data) {
-			location.reload();
+			if(data.valid) {
+			$('#product_model').modal('hide');
+			$('#outer_block').empty();
+			$('.alert').show();
+			$('#outer_block').html('<a class="close"  href="#">&times;</a>'+ data.notice).removeClass("alert-error").addClass("alert-success");
+		}
 		});
 
 	}

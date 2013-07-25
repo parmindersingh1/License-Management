@@ -9,7 +9,7 @@ LicenseManagement::Application.routes.draw do
   resources :product_licenses do
     collection do
       get :generate_keys, :license_report 
-      post :date_range_license_report
+      post :date_range_license_report,:generate_license_key
       
     end
   end

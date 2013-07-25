@@ -1,4 +1,4 @@
-<%= form_for(@product) do |f| %>
+<%= form_for(@product,:html =>{ :class=> "form-signin"}) do |f| %>
   <% if @product.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
@@ -12,18 +12,15 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name ,:class => "input-block-level",:placeholder=>"Name"%>
   </div>
   <div class="field">
-    <%= f.label :version %><br />
-    <%= f.text_field :version %>
+    <%= f.text_field :version , :class => "input-block-level",:placeholder=>"Version"%>
   </div>
   <div class="field">
-    <%= f.label :release_date %><br />
-    <%= f.date_select :release_date %>
+    <%= f.text_field :release_date, :class => "input-block-level",:placeholder=>"Release date" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Register',:class=>"btn btn-large btn-primary" %>
   </div>
 <% end %>
