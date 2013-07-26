@@ -1,3 +1,6 @@
+$(document).on("click", "#product_license", function() {
+	$('#product_modal').modal('show');
+});
 
 $(document).on("click", "#date_range", function() {
 	$('#myModal').modal('show');
@@ -47,4 +50,15 @@ $(document).ready(function() {
 
 
 
-
+$(document).on("submit","#product_submit",function(e){
+	var product_id=$("#product_license_name").val();
+	if((product_id=="") || (product_id==null))
+	{
+		e.preventDefault();
+		alert("error");
+		$('#product_alert').show().find('strong').text('Select Product');		
+	}
+	else {
+		$('#product_modal').modal('hide');
+	}
+});
