@@ -1,21 +1,21 @@
 $(document).on("click", "#generate_button", function() {
 	var keys_count = $("#keys_count").val();
 	var product_id = $("#prod_id").val();
-	if ((keys_count > 100) || (keys_count < 1) || (keys_count== "")) {
-	
-	$('#alert').show().find('strong').text('key must be between 1 to 100');		
+	if ((keys_count > 100) || (keys_count < 1) || (keys_count == "")) {
+
+		$('#alert').show().find('strong').text('key must be between 1 to 100');
 
 	} else {
 		$.getJSON("/product_licenses/generate_keys", {
 			keys_count : keys_count,
 			product_id : product_id
 		}, function(data) {
-			if(data.valid) {
-			$('#product_model').modal('hide');
-			$('#outer_block').empty();
-			$('.alert').show();
-			$('#outer_block').html('<a class="close"  href="#">&times;</a>'+ data.notice).removeClass("alert-error").addClass("alert-success");
-		}
+			if (data.valid) {
+				$('#product_model').modal('hide');
+				$('#outer_block').empty();
+				$('.alert').show();
+				$('#outer_block').html('<a class="close"  href="#">&times;</a>' + data.notice).removeClass("alert-error").addClass("alert-success");
+			}
 		});
 
 	}
@@ -48,18 +48,22 @@ $(document).ready(function() {
 $(document).on("submit", "#date_submit", function(e) {
 	if (($('#alert').is(':visible')) || ($("#date-start").val() == "" || $("#date-end").val() == "")) {
 		e.preventDefault();
-		$('#alert').show().find('strong').text('Start Date or End Date is Empty');	
+		$('#alert').show().find('strong').text('Start Date or End Date is Empty');
 	} else {
 		$('#myModal').modal('hide');
 	}
-}); 
+});
 
-
-$(document).on("change","#product_licence_name", function(event){
+$(document).on("change", "#product_licence_name", function(event) {
 	var product_id = $(this).val();
-		
-	$.get("/product_licenses/show_licenses",{product_id : product_id},function(data){
+
+	$.get("/product_licenses/show_licenses", {
+		product_id : product_id
+	}, function(data) {
+		$('#data_table').dataTable();
 		$("#response_div").empty();
 		$("#response_div").html(data);
 	});
 });
+
+

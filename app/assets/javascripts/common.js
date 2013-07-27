@@ -15,7 +15,9 @@ $(document).ready(function() {
 	var startDate = "";
 	var endDate = "";
 
-	$('#date-start').datepicker({format: "dd/mm/yyyy"}).on('changeDate', function(ev) {
+	$('#date-start').datepicker({
+		format : "dd/mm/yyyy"
+	}).on('changeDate', function(ev) {
 		if (endDate.valueOf() != "") {
 			if (ev.date.valueOf() > endDate.valueOf()) {
 				$('#alert').show().find('strong').text('The start date must be before the end date.');
@@ -30,10 +32,12 @@ $(document).ready(function() {
 		}
 		$('#date-start').datepicker('hide');
 	});
-	$('#date-end').datepicker({format: "dd/mm/yyyy"}).on('changeDate', function(ev) {
-		
+	$('#date-end').datepicker({
+		format : "dd/mm/yyyy"
+	}).on('changeDate', function(ev) {
+
 		if (startDate.valueOf() != "") {
-			if (ev.date.valueOf() < startDate.valueOf()) {				
+			if (ev.date.valueOf() < startDate.valueOf()) {
 				$('#alert').show().find('strong').text('The end date must be after the start date.');
 				$("#date-end").val("");
 			} else {
@@ -48,17 +52,14 @@ $(document).ready(function() {
 	});
 });
 
-
-
-$(document).on("submit","#product_submit",function(e){
-	var product_id=$("#product_license_name").val();
-	if((product_id=="") || (product_id==null))
-	{
+$(document).on("submit", "#product_submit", function(e) {
+	var product_id = $("#product_license_name").val();
+	if ((product_id == "") || (product_id == null)) {
 		e.preventDefault();
 		alert("error");
-		$('#product_alert').show().find('strong').text('Select Product');		
-	}
-	else {
+		$('#product_alert').show().find('strong').text('Select Product');
+	} else {
 		$('#product_modal').modal('hide');
 	}
 });
+

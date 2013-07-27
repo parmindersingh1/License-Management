@@ -1,7 +1,9 @@
+<%= will_paginate @product_licenses %>
 
 <h1>Product Licenses</h1>
 
-<table class="table table-striped table-bordered table-condensed" style="alignment-adjust: central">
+<table id="data_table" class="table table-striped table-bordered" style="alignment-adjust: central">
+ <thead>
   <tr>
   	<th>Product Name</th>
     <th>License key</th>
@@ -19,7 +21,8 @@
     <th>Updated date</th>
     -->
   </tr>
-
+</thead>
+<tbody>
 <% @product_licenses.each do |product_license| %>
   <tr>
   	<td><%= product_license.product.name%></td>
@@ -38,6 +41,7 @@
     <td><%= product_license.updated_date %></td>    --> 
   </tr>
 <% end %>
+</tbody>
 </table>
 
 
