@@ -107,7 +107,7 @@ class ProductLicensesController < ApplicationController
 
   def license_report
     puts "--++++++++--------#{params}"
-    @product_licenses=ProductLicense.all
+    @product_licenses=ProductLicense.where(:product_id=>params[:product_license][:name])
     respond_to do |format|
       format.html
       format.rss
@@ -166,7 +166,7 @@ def generate_license_key
   
    def unassigned_report
     puts "--++++++++--------#{params}"
-    @product_licenses=ProductLicense.where(:is_assigned=> true)
+    @product_licenses=ProductLicense.where(:is_assigned=> false)
     respond_to do |format|
       format.html
       format.rss

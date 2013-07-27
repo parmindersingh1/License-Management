@@ -10,4 +10,5 @@ class ApplicationController < ActionController::Base
       redirect_to signin_url, notice: "Please sign in to access this page." 
       end
     end
+   
 end
