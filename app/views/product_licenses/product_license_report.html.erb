@@ -1,0 +1,3 @@
+<h1 style="width: 350px">Product Licenses</h1><%= link_to "Export Excel" ,{:controller=>"/product_licenses",:action=>"date_range_license_report",:format => 'xls',:start_date=>@selected_date1,:end_date=>@selected_date2}, :class=>'btn btn-large btn-primary' ,:id=>"generate_report"%>
+
+<%=render :partial=>"product_license_partial"%>

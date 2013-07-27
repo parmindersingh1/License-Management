@@ -1,11 +1,11 @@
-<form class="form-signin">
+<div class="container-div">
 	<div>
 		<h2>Select Product<h2>
 		<%= select :product_licence,:name , @products.map {|p| [p.name,p.id]},:prompt => "Select" %>
 	</div>
 	
 	
-</form>
+</div>
 <div id="response_div"></div>
 
 

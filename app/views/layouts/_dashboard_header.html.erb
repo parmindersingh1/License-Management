@@ -33,16 +33,16 @@
 								<a id="date_range" href="#"> Date Range License</a>
 							</li>
 							<li>
-								<%= link_to "Regeneration Reports", {:controller=>"/product_licenses", :action=>"regeneration_report", :format=>"xls"}%>
+								<%= link_to "Regeneration Reports", {:controller=>"/product_licenses", :action=>"regeneration_report_html"}%>
 							</li>
 							<li>
 								<a id="product_license" href="#"> Product License</a>
 							</li>
 							<li>
-								<%= link_to "Unassigned License", {:controller=>"/product_licenses", :action=>"unassigned_report", :format=>"xls"}%>
+								<%= link_to "Unassigned License", {:controller=>"/product_licenses", :action=>"unassigned_report_html"}%>
 							</li>
 							<li>
-								<%= link_to "Deleted License", {:controller=>"/product_licenses", :action=>"deleted_report", :format=>"xls"}%>
+								<%= link_to "Deleted License", {:controller=>"/product_licenses", :action=>"deleted_key_report_html"}%>
 							</li>
 							<!-- <li class="divider"></li>
 							<li class="nav-header">Nav header</li> -->
