@@ -14,7 +14,11 @@ LicenseManagement::Application.routes.draw do
   end
 
 
-  resources :products 
+  resources :products do
+    collection do 
+      get :reset_requests,:search_email,:allow_regeneration
+    end
+  end 
   
   resources :sessions do 
     collection do

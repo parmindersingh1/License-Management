@@ -81,4 +81,21 @@ class ProductsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def reset_requests
+    
+  end
+  
+  def search_email
+     puts "the parama are #{params}"
+     @searched_emails = ProductLicense.find_by_email(params[:email])
+     render :partial => "searched_emails"  
+  end
+  def allow_regeneration
+    puts "params are #{params}"
+    license = ProductLicense.find_by_id(params[:id])
+    license.update_attributes(:allow_regeneration=>true)
+    @searched_emails = ProductLicense.find_by_id(params[:id])
+    render :partial => "searched_emails"  
+  end
 end

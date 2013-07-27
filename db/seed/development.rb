@@ -1,0 +1,1 @@
+User.create(email: 'pardeep@ezzie.in',password: 'P@ssw0rd',admin: true)

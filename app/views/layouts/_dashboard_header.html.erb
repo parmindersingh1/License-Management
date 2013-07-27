@@ -58,6 +58,18 @@
 							<li>
 								<a href="/users/change_password">Change Password</a>
 							</li>
+							<% if current_user.admin?%>
+							<li>
+								<a href="/users">Delete User</a>
+							</li>
+							<li>
+								<a href="/products/reset_requests">Allow Key Regeneration</a>
+							</li>
+							<li>
+								<a href="#">Delete Key</a>
+							</li>
+								
+							<%end%>
 						</ul>
 					</li>
 					<%else%>
