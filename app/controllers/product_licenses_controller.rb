@@ -189,7 +189,9 @@ def generate_license_key
   end
   
   def show_licenses
-    @product_licenses = ProductLicense.find_all_by_product_id(params[:product_id])
+    # @product_licenses = ProductLicense.find_all_by_product_id(params[:product_id])
+    # @product_licenses=ProductLicense.paginate(:page => 10, :conditions => "product_id = #{params[:product_id]}")
+    @product_licenses=ProductLicense.where(:product_id => params[:product_id]).paginate(:page => params[:page], :per_page => 10)
     render :partial => "license_partial"
   end
   

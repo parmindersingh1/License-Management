@@ -1,3 +1,4 @@
-<h1 style="width: 410px">Unassigned License</h1><%= link_to "Export Excel" ,{:controller=>"/product_licenses",:action=>"license_report",:format => 'xls'}, :class=>'btn btn-large btn-primary' ,:id=>"generate_report"%>
-
-<%=render :partial=>"product_license_partial"%>
+<div class="inline reports">
+<h1 style="width: 410px">Product License</h1><%= link_to "Export Excel" ,{:controller=>"/product_licenses",:action=>"license_report",:format => 'xls'}, :class=>'btn btn-large btn-primary' ,:id=>"generate_report"%>
+</div>
+<%= render :partial=>"product_license_partial"%>
