@@ -8,7 +8,7 @@
 		<h3 id="myModalLabel">Date Range</h3>
 	</div>
 
-	<%=form_for :product_licenses, :url=>{:controller=>"product_licenses",:action=>"date_range_license_report", :format=>"xls"},:html=>{ :id=>"date_submit"} do |form|%>
+	<%=form_for :product_licenses, :url=>{:controller=>"product_licenses",:action=>"product_license_report"},:html=>{ :id=>"date_submit"} do |form|%>
 	<div class="modal-body" >
 		<div class="alert alert-error" id="alert" style="display: none">
 			<strong>Oh snap!</strong>
@@ -46,7 +46,7 @@
 		<h3 id="myModalLabel">Products </h3>
 	</div>
 	
-	<%=form_for :product_licenses, :url=>{:controller=>"product_licenses",:action=>"license_report", :format=>"xls"},:html=>{ :id=>"product_submit"} do |form|%>
+	<%=form_for :product_licenses, :url=>{:controller=>"product_licenses",:action=>"product_license_report_html"},:html=>{ :id=>"product_submit"} do |form|%>
 	<div class="modal-body" >
 		<div class="alert alert-error" id="product_alert" style="display: none">
 			<strong>Oh snap!</strong>

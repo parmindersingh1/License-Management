@@ -107,7 +107,7 @@ class ProductLicensesController < ApplicationController
 
   def license_report
     puts "--++++++++--------#{params}"
-    @product_licenses=ProductLicense.where(:product_id=>params[:product_license][:name])
+    @product_licenses=ProductLicense.where(:product_id=>params[:product_id])
     respond_to do |format|
       format.html
       format.rss
@@ -119,8 +119,8 @@ class ProductLicensesController < ApplicationController
   
   def date_range_license_report
     puts "----------#{params}"
-    @selected_date1=params[:start_date][:field].to_date
-    @selected_date2=params[:end_date][:field].to_date
+    @selected_date1=params[:start_date].to_date
+    @selected_date2=params[:end_date].to_date
     puts "#{@selected_date1 } ----------------#{@selected_date2 }"
     @product_licenses=ProductLicense.where(:created_at => @selected_date1.beginning_of_day..@selected_date2.end_of_day)
     respond_to do |format|
@@ -193,5 +193,48 @@ def generate_license_key
     # @product_licenses=ProductLicense.paginate(:page => 10, :conditions => "product_id = #{params[:product_id]}")
     @product_licenses=ProductLicense.where(:product_id => params[:product_id]).paginate(:page => params[:page], :per_page => 10)
     render :partial => "license_partial"
+  end
+  
+  def product_license_report
+    @selected_date1=params[:start_date][:field].to_date
+    @selected_date2=params[:end_date][:field].to_date
+    puts "#{@selected_date1 } ----------------#{@selected_date2 }"
+    @product_licenses=ProductLicense.where(:created_at => @selected_date1.beginning_of_day..@selected_date2.end_of_day)
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @product_licenses }
+    end
+  end
+  def regeneration_report_html
+    @product_licenses=ProductLicense.where(:allow_regeneration=>true)
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @product_licenses }
+    end
+  end
+  def product_license_report_html
+    puts "the params are #{params}"
+    @product_id = params[:product_license][:name]
+    @product_licenses=ProductLicense.where(:product_id=>params[:product_license][:name])
+     respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @product_licenses }
+    end
+  end
+  
+  def unassigned_report_html
+    @product_licenses=ProductLicense.where(:is_assigned=> false)
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @product_licenses }
+    end
+  end
+  
+  def deleted_key_report_html
+   @product_licenses=ProductLicense.where(:is_deleted=> true)
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @product_licenses }
+    end
   end
 end

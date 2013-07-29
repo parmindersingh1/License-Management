@@ -1,4 +1,5 @@
 $(document).on("click", "#product_license", function() {
+	
 	$('#product_modal').modal('show');
 });
 

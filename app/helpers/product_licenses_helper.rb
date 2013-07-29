@@ -41,10 +41,26 @@ module ProductLicensesHelper
       data[row_index+i+1,column_index+3]=lic.machine_id
       data[row_index+i+1,column_index+4]=lic.expiry_date
       data[row_index+i+1,column_index+5]=lic.reset_counter
-      data[row_index+i+1,column_index+6]=lic.allow_regeneration
-      data[row_index+i+1,column_index+7]=lic.is_assigned
-      data[row_index+i+1,column_index+8]=lic.is_created
-      data[row_index+i+1,column_index+9]=lic.is_deleted
+      if lic.allow_regeneration?
+        data[row_index+i+1,column_index+6]="Yes"
+      else
+        data[row_index+i+1,column_index+6]="No"
+      end
+      if lic.is_assigned?
+        data[row_index+i+1,column_index+7]="Yes"
+      else
+        data[row_index+i+1,column_index+7]="No"
+      end
+      if lic.is_created?
+        data[row_index+i+1,column_index+8]="Yes"
+      else
+        data[row_index+i+1,column_index+8]="No"
+      end
+      if lic.is_deleted?
+        data[row_index+i+1,column_index+9]="Yes"
+      else
+        data[row_index+i+1,column_index+9]="No"
+      end
       data[row_index+i+1,column_index+10]=lic.created_by
       data[row_index+i+1,column_index+11]=lic.updated_by
       data[row_index+i+1,column_index+12]=lic.updated_date
