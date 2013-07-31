@@ -1,5 +1,7 @@
 $(document).ready(function(){
+	alert("ok1");
 	$("#product_release_date").datepicker({format: "dd/mm/yyyy"});
+	alert("ok2");
 });
 
 $(document).on("click", "#licenses_gen", function() {
