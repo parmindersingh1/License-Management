@@ -5,7 +5,7 @@ class ProductLicensesController < ApplicationController
   # GET /product_licenses.json
   def index
     @products = Product.find(:all);
-    @product_licenses = ProductLicense.paginate(:page => params[:page], :per_page => 10)
+    # @product_licenses = ProductLicense.paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -189,9 +189,9 @@ def generate_license_key
   end
   
   def show_licenses
-    # @product_licenses = ProductLicense.find_all_by_product_id(params[:product_id])
+    @product_licenses = ProductLicense.find_all_by_product_id(params[:product_id])
     # @product_licenses=ProductLicense.paginate(:page => 10, :conditions => "product_id = #{params[:product_id]}")
-    @product_licenses=ProductLicense.where(:product_id => params[:product_id]).paginate(:page => params[:page], :per_page => 10)
+    # @product_licenses=ProductLicense.where(:product_id => params[:product_id]).paginate(:page => params[:page], :per_page => 10)
     render :partial => "license_partial"
   end
   

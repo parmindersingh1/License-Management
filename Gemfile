@@ -10,10 +10,9 @@ gem 'execjs'
 gem 'therubyracer'
 gem 'mysql2'
 gem 'bcrypt-ruby', '3.0.1'
-gem 'will_paginate'
 gem 'spreadsheet'
-gem 'faker', '1.1.2'
- gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
