@@ -14,6 +14,7 @@ gem 'will_paginate'
 gem 'spreadsheet'
 gem 'faker', '1.1.2'
 gem 'jquery-datatables-rails', git: 'https://github.com/rweng/jquery-datatables-rails.git'
+gem 'rspec-rails', '2.13.1'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -24,6 +25,11 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+end
+
+group :test do
+  gem 'selenium-webdriver', '2.0.0'
+  gem 'capybara'
 end
 
 gem 'jquery-rails'

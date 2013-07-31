@@ -64,10 +64,4 @@ $(document).on("submit", "#product_submit", function(e) {
 	}
 });
 
-$(document).ready(function(){
-	$('.license_table').dataTable({
-  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-  "sPaginationType": "bootstrap"
-});
-	
-});
+

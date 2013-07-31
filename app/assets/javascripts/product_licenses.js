@@ -60,10 +60,14 @@ $(document).on("change", "#product_licence_name", function(event) {
 	$.get("/product_licenses/show_licenses", {
 		product_id : product_id
 	}, function(data) {
-		$('#data_table').dataTable();
+		
 		$("#response_div").empty();
 		$("#response_div").html(data);
 	});
 });
 
+$(document).ready(function(){
+	$("#example").dataTable();
+});
+////////////////////////////////////////
 
