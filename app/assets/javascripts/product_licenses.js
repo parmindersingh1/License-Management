@@ -59,8 +59,8 @@ $(document).on("change", "#product_licence_name", function(event) {
 
 	$.get("/product_licenses/show_licenses", {
 		product_id : product_id
-	}, function(data) {
-		
+
+	}, function(data) {		
 		$("#response_div").empty();
 		$("#response_div").html(data);
 	});
