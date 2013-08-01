@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/rweng/jquery-datatables-rails.git
+  revision: 494f752b8eb8350f33841c822a67d014c869219f
+  specs:
+    jquery-datatables-rails (1.11.2)
+      jquery-rails
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -75,6 +82,7 @@ GEM
     mysql2 (0.3.11)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    pg (0.16.0)
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
@@ -156,8 +164,10 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   execjs
   factory_girl_rails (= 4.2.1)
+  jquery-datatables-rails!
   jquery-rails
   mysql2
+  pg (= 0.16.0)
   rails (= 3.2.13)
   rspec-rails (= 2.13.1)
   sass-rails (~> 3.2.3)

@@ -1,5 +1,5 @@
 $(document).on("click", "#product_license", function() {
-	
+
 	$('#product_modal').modal('show');
 });
 
@@ -64,4 +64,8 @@ $(document).on("submit", "#product_submit", function(e) {
 	}
 });
 
-
+$(document).ready(function() {
+	$("#product_release_date").datepicker({
+		format : "dd/mm/yyyy"
+	});
+});

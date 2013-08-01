@@ -1,6 +1,3 @@
-$(document).ready(function(){
-	$("#product_release_date").datepicker({format: "dd/mm/yyyy"});
-});
 
 $(document).on("click", "#licenses_gen", function() {
 	
