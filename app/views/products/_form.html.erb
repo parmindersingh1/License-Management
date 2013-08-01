@@ -12,13 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.text_field :name ,:class => "input-block-level",:placeholder=>"Name"%>
+    <%= f.text_field :name ,:class => "input-block-level",:placeholder=>"Name", :required=> true%>
   </div>
   <div class="field">
-    <%= f.text_field :version , :class => "input-block-level",:placeholder=>"Version"%>
+    <%= f.text_field :version , :class => "input-block-level",:placeholder=>"Version", :required=> true%>
   </div>
   <div class="field">
-    <%= f.text_field :release_date, :class => "input-block-level",:placeholder=>"Release date" %>
+    <%= f.text_field :release_date, :class => "input-block-level",:placeholder=>"Release date", :required=> true %>
   </div>
   <div class="actions">
     <%= f.submit 'Register',:class=>"btn btn-large btn-primary" %>

@@ -2,7 +2,7 @@ LicenseManagement::Application.routes.draw do
 
   resources :users do
     collection do
-      get :forgot_password,:change_password
+      get :forgot_password,:change_password,:dashboard
     end
   end
 

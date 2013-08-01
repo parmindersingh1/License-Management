@@ -15,5 +15,6 @@
 //= require bootstrap
 //= require bootstrap.min
 //= require bootstrap-dropdown
+//= require bootstrapvalidations
 //= require bootstrap-datepicker
 //= require_tree .

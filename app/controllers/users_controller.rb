@@ -85,6 +85,9 @@ class UsersController < ApplicationController
   def change_password
     
   end
+  def dashboard
+    
+  end
  
   private
 
