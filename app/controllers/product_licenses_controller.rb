@@ -90,7 +90,7 @@ class ProductLicensesController < ApplicationController
     @error=true
     @generated_list=[]
     count.to_i.times do
-      @list=SecureRandom.hex(8)
+      @list=SecureRandom.hex(3)
       @generated_list<<@list
       @key=ProductLicense.new(:license_key => @list)
       @key.product_id = params[:product_id]

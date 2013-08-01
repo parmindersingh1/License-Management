@@ -16,4 +16,6 @@
 //= require bootstrap.min
 //= require bootstrap-dropdown
 //= require bootstrap-datepicker
+//= require dataTables/jquery.dataTables
+//= require dataTables/jquery.dataTables.bootstrap
 //= require_tree .
