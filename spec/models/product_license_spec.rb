@@ -30,10 +30,10 @@ describe ProductLicense do
     it { should_not be_valid }
   end
   
-  describe "when product_id is not present" do
-    before { @productlicense.product_id = nil }
-    it { should_not be_valid }
-  end
+  # describe "when product_id is not present" do
+    # before { @productlicense.product_id = nil }
+    # it { should_not be_valid }
+  # end
   
   describe "when license key is not present" do
     before { @productlicense.license_key = nil }
