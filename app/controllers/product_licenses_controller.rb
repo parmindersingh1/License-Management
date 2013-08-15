@@ -155,6 +155,7 @@ def generate_license_key
         @generated_key = Digest::SHA1.hexdigest(@received_key.to_s + @machine_id.to_s)
         @string = @received_key+@machine_id+@email+@generated_key
         @encrypted_string = Base64.encode64(public_key.public_encrypt(@string))
+        puts "the encripted string is #{@encrypted_string}"
         license_key.update_attributes(:calculated_key=>@generated_key,:email=>@email,:machine_id=>@machine_id,:is_assigned=>true,:is_created=>true,:is_deleted=>false)
         render :json=> {:valid=>true ,:digital_signature =>@encrypted_string,:message=>"key generated key successfully"}
       end
