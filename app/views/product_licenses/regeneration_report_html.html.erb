@@ -1,0 +1,4 @@
+<div class="inline reports">
+<h1 style="width: 410px">Regeneration Reports</h1><%= link_to "Export Excel" ,{:controller=>"/product_licenses",:action=>"regeneration_report",:format => 'xls'}, :class=>'btn btn-large btn-primary' ,:id=>"generate_report"%>
+</div>
+<%=render :partial=>"product_license_partial"%>

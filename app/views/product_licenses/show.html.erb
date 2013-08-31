@@ -1,0 +1,70 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>License key:</b>
+  <%= @product_license.license_key %>
+</p>
+
+<p>
+  <b>Calculated key:</b>
+  <%= @product_license.calculated_key %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @product_license.email %>
+</p>
+
+<p>
+  <b>Machine:</b>
+  <%= @product_license.machine_id %>
+</p>
+
+<p>
+  <b>Expire date:</b>
+  <%= @product_license.expiry_date %>
+</p>
+
+<p>
+  <b>Reset counter:</b>
+  <%= @product_license.reset_counter %>
+</p>
+
+<p>
+  <b>Allow regeneration:</b>
+  <%= @product_license.allow_regeneration %>
+</p>
+
+<p>
+  <b>Is assigned:</b>
+  <%= @product_license.is_assigned %>
+</p>
+
+<p>
+  <b>Is created:</b>
+  <%= @product_license.is_created %>
+</p>
+
+<p>
+  <b>Is deleted:</b>
+  <%= @product_license.is_deleted %>
+</p>
+
+<p>
+  <b>Created by:</b>
+  <%= @product_license.created_by %>
+</p>
+
+<p>
+  <b>Updated by:</b>
+  <%= @product_license.updated_by %>
+</p>
+
+<p>
+  <b>Updated date:</b>
+  <%= @product_license.updated_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_product_license_path(@product_license) %> |
+<%= link_to 'Back', product_licenses_path %>
