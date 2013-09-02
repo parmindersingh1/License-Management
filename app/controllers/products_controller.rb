@@ -73,7 +73,6 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
-    puts "params in destroy controller is #{params}"
     @product = Product.find(params[:id])
     @product.destroy
 
@@ -82,6 +81,7 @@ class ProductsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
   def delete_product
     puts "params in destroy controller is #{params}"
     @product = Product.find(params[:id])
@@ -94,6 +94,7 @@ class ProductsController < ApplicationController
       render :json=> {:valid=>false, :notice=>"Dependency Error .This Product can not be deleted"}
     end
   end
+
   
   def reset_requests
     

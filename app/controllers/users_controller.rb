@@ -79,6 +79,18 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
+  def delete_user
+    unless params[:id].nil?
+    puts "param in delete user is #{params}"
+    User.find(params[:id]).destroy
+    render :json=>{:valid=>true, :message=>"User deleted successfully"}
+    end
+  end 
+  def refersh_user
+    @users = User.all
+    render :partial=>"refersh_users"
+  end
+  
   def forgot_password
     
   end

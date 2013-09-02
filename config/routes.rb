@@ -2,7 +2,7 @@ LicenseManagement::Application.routes.draw do
 
   resources :users do
     collection do
-      get :forgot_password,:change_password,:dashboard
+      get :forgot_password,:change_password,:dashboard,:delete_user,:refersh_user
     end
   end
 
@@ -17,7 +17,9 @@ LicenseManagement::Application.routes.draw do
 
   resources :products do
     collection do 
+
       get :reset_requests,:search_email,:allow_regeneration,:delete_product
+
     end
   end 
   

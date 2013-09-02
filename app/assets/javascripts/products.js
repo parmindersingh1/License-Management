@@ -33,6 +33,7 @@ $(document).on("click","#re_gen_id",function(){
 	});
 })
 
+
 $(document).on("click", "#delete_product", function() {
 	
 	$('#delete_product_modal').modal('show');
@@ -57,3 +58,4 @@ $(document).on("click","#delete_selected_product", function() {
 		}
 	})
 });
+
