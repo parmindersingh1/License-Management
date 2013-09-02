@@ -32,3 +32,30 @@ $(document).on("click","#re_gen_id",function(){
 		$("#searched_email").html(data);
 	});
 })
+
+
+$(document).on("click", "#delete_product", function() {
+	
+	$('#delete_product_modal').modal('show');
+	var product_id = $(this).attr("value")
+	$("#product_id1").val(product_id);
+});
+
+$(document).on("click","#delete_selected_product", function() {
+	
+	var product_id = $("#product_id1").val();
+	$.get("products/delete_product?id="+product_id,function(data){
+		if(data.valid){	
+			$('#delete_product_modal').modal('hide');
+			$('#outer_block').empty();
+			$('.alert').show();
+			$('#outer_block').html('<a class="close"  href="#">&times;</a>' + data.notice).removeClass("alert-error").addClass("alert-success");				
+		}else{
+			$('#delete_product_modal').modal('hide');
+			$('#outer_block').empty();
+			$('.alert').show();
+			$('#outer_block').html('<a class="close"  href="#">&times;</a>' + data.notice).removeClass("alert-success").addClass("alert-error");				
+		}
+	})
+});
+

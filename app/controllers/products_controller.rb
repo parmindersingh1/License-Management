@@ -81,6 +81,20 @@ class ProductsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def delete_product
+    puts "params in destroy controller is #{params}"
+    @product = Product.find(params[:id])
+    product_keys = ProductLicense.find_all_by_product_id(@product)
+    puts "the product keys are #{product_keys}"
+    if product_keys.empty?
+      @product.destroy
+      render :json=> {:valid=>true, :notice=>"Product deleted successfully. Please Refresh page."}
+    else
+      render :json=> {:valid=>false, :notice=>"Dependency Error .This Product can not be deleted"}
+    end
+  end
+
   
   def reset_requests
     

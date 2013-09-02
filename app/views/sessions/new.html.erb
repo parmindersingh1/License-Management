@@ -8,7 +8,7 @@
   <div id="signin_error" class="alert alert-error" style="display: none"> <a href="#" class="close">&times;</a><%= notice %></div>		
 <%end%>
   <div class="field"> 
-    <%= f.text_field :email, :class => "input-block-level",:placeholder=>"Email address", :required=> true%>
+    <%= f.email_field :email, :class => "input-block-level",:placeholder=>"Email address", :required=> true%>
   </div>
   <div class="field">   
     <%= f.password_field :password, :class => "input-block-level",:placeholder=>"Password", :required=> true%>

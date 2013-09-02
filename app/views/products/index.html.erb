@@ -13,7 +13,14 @@
     <td><%= product.name %></td>
     <td><%= product.version %></td>
     <td><%= product.release_date %></td>
-    <td><a href="#" id="licenses_gen" product_id=<%=product.id%>>Genrate Licenses</a></td>
+    <td><a href="#" id="licenses_gen" product_id=<%=product.id%>>Genrate Licenses</a>&nbsp;&nbsp;&nbsp;
+    	<%product_licence = ProductLicense.find_all_by_product_id(product.id)%>
+    	<%if product_licence.empty?%>
+    	<a href="#" id="delete_product" class="a_product" value="<%=product.id%>">Delete Product</a></td>
+    	<%else%>
+    	Delete Product
+    	<%end%>
+	
 
   </tr>
 <% end %>
