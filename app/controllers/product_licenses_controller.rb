@@ -152,14 +152,14 @@ def generate_license_key
     puts "the public key string is #{@public_key_string}"
     # puts "the public key is #{@public_key}"
     license_key = ProductLicense.find_by_license_key(@received_key)
-    @license_id =license_key.id.to_s
-    @voices = license_key.product.name
+        
     unless license_key.nil?
       if license_key.is_assigned
         render :json=> {:valid=>false , :message=> "Key already generated for this license key"}
       else
+        @voices = license_key.product.name
         @generated_key = Digest::SHA1.hexdigest(@received_key.to_s + @machine_id.to_s)
-        @string = "cd_key="+@received_key+" machinde_id="+@machine_id+" email="+@email+" generated_key="+@generated_key+" License_id="+@license_id+" voices="+@voices
+        @string = "cd_key="+@received_key+" machinde_id="+@machine_id+" email="+@email+" generated_key="+@generated_key+" voices="+@voices
         @encrypted_string = Base64.encode64(private_key.private_encrypt(@string))
         puts "the encripted string is #{@encrypted_string}"
         
