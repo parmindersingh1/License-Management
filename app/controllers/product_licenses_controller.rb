@@ -147,10 +147,10 @@ def generate_license_key
     @email = params[:data][:email]
     
     private_key = OpenSSL::PKey::RSA.new(File.read(private_key_file))
-    @public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
+    # @public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
     @public_key_string = File.read(public_key_file)
     puts "the public key string is #{@public_key_string}"
-    # puts "the public key is #{@public_key}"
+   
     license_key = ProductLicense.find_by_license_key(@received_key)
         
     unless license_key.nil?
@@ -159,21 +159,15 @@ def generate_license_key
       else
         @voices = license_key.product.name
         @generated_key = Digest::SHA1.hexdigest(@received_key.to_s + @machine_id.to_s)
-        @string = "cd_key="+@received_key+" machinde_id="+@machine_id+" email="+@email+" generated_key="+@generated_key+" voices="+@voices
-        @encrypted_string = Base64.encode64(private_key.private_encrypt(@string))
+        @string = @received_key+"  "+@machine_id+"  "+@email+"  "+@generated_key+"  "+@voices
+        @encrypted_string = Base64.encode64(private_key.private_encrypt(@string)+@public_key_string)
         puts "the encripted string is #{@encrypted_string}"
         
-        # string1 = @public_key.public_decrypt(Base64.decode64(@encrypted_string))
-        # puts "the decrypted string is #{string1}"
         license_key.update_attributes(:calculated_key=>@generated_key,:email=>@email,:machine_id=>@machine_id,:is_assigned=>true,:is_created=>true,:is_deleted=>false)
-        render :json=> {:valid=>true ,:digital_signature =>@encrypted_string, :public_key => @public_key_string ,:voices=>@voices,:message=>"key generated key successfully"}
+        render :json=> {:valid=>true ,:digital_signature =>@encrypted_string, :voices=>@voices,:message=>"key generated key successfully"}
       end
     else
-      # private_key_file = 'private_key.pem';
-      # password = 'boost facile'
-      # private_key = OpenSSL::PKey::RSA.new(File.read(private_key_file),password)
-      # string1 =  private_key.private_decrypt(Base64.decode64(encrypted_string))
-      # puts "the decrypted string is #{string1}"
+      
       render :json=> {:valid=>false , :message=> "Key not generated for this license"}
     end 
   end
