@@ -166,7 +166,7 @@ def generate_license_key
         # string1 = @public_key.public_decrypt(Base64.decode64(@encrypted_string))
         # puts "the decrypted string is #{string1}"
         license_key.update_attributes(:calculated_key=>@generated_key,:email=>@email,:machine_id=>@machine_id,:is_assigned=>true,:is_created=>true,:is_deleted=>false)
-        render :json=> {:valid=>true ,:digital_signature =>@encrypted_string, :public_key => @public_key ,:voices=>@voices,:message=>"key generated key successfully"}
+        render :json=> {:valid=>true ,:digital_signature =>@encrypted_string, :public_key => @public_key_string ,:voices=>@voices,:message=>"key generated key successfully"}
       end
     else
       # private_key_file = 'private_key.pem';
