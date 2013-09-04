@@ -148,7 +148,9 @@ def generate_license_key
     
     private_key = OpenSSL::PKey::RSA.new(File.read(private_key_file))
     @public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
-    puts "the public key is #{@public_key}"
+    @public_key_string = File.read(public_key_file)
+    puts "the public key string is #{@public_key_string}"
+    # puts "the public key is #{@public_key}"
     license_key = ProductLicense.find_by_license_key(@received_key)
     @license_id =license_key.id.to_s
     @voices = license_key.product.name
