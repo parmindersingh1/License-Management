@@ -141,23 +141,30 @@ def generate_license_key
     # open 'private_key.pem', 'w' do |io| io.write key.to_pem end
     # open 'public_key.pem', 'w' do |io| io.write key.public_key.to_pem end
     public_key_file = 'public_key.pem'
+    private_key_file = 'private_key.pem'
     @received_key = params[:data][:license_key]
     @machine_id = params[:data][:machine_id]
     @email = params[:data][:email]
     
-    
-    public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
+    private_key = OpenSSL::PKey::RSA.new(File.read(private_key_file))
+    @public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
+    puts "the public key is #{@public_key}"
     license_key = ProductLicense.find_by_license_key(@received_key)
+    @license_id =license_key.id.to_s
+    @voices = license_key.product.name
     unless license_key.nil?
       if license_key.is_assigned
         render :json=> {:valid=>false , :message=> "Key already generated for this license key"}
       else
         @generated_key = Digest::SHA1.hexdigest(@received_key.to_s + @machine_id.to_s)
-        @string = @received_key+@machine_id+@email+@generated_key
-        @encrypted_string = Base64.encode64(public_key.public_encrypt(@string))
+        @string = "cd_key="+@received_key+" machinde_id="+@machine_id+" email="+@email+" generated_key="+@generated_key+" License_id="+@license_id+" voices="+@voices
+        @encrypted_string = Base64.encode64(private_key.private_encrypt(@string))
         puts "the encripted string is #{@encrypted_string}"
+        
+        # string1 = @public_key.public_decrypt(Base64.decode64(@encrypted_string))
+        # puts "the decrypted string is #{string1}"
         license_key.update_attributes(:calculated_key=>@generated_key,:email=>@email,:machine_id=>@machine_id,:is_assigned=>true,:is_created=>true,:is_deleted=>false)
-        render :json=> {:valid=>true ,:digital_signature =>@encrypted_string,:message=>"key generated key successfully"}
+        render :json=> {:valid=>true ,:digital_signature =>@encrypted_string, :public_key => @public_key ,:voices=>@voices,:message=>"key generated key successfully"}
       end
     else
       # private_key_file = 'private_key.pem';
