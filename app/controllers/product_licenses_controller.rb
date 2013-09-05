@@ -91,11 +91,8 @@ class ProductLicensesController < ApplicationController
     count=params[:keys_count]
     product_list = params[:product_list]
     @error=true
-    @generated_list=[]
     count.to_i.times do
       @list=SecureRandom.hex(3)
-      @generated_list<<@list
-      
       @key=ProductLicense.new()
       @key.license_key = @list
       # @key.product_id = params[:product_id]
@@ -109,7 +106,7 @@ class ProductLicensesController < ApplicationController
         @error=false
       end
     end
-    puts "the error is #{@error}"
+  
     if @error
       render :json=> {:valid=>false, :notice=>"Error in key Generation"}
     else
