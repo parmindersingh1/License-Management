@@ -5,7 +5,7 @@
     <th>Name</th>
     <th>Version</th>
     <th>Release date</th>
-    <th>Action</th>
+    
   </tr>
 
 <% @products.each do |product| %>
@@ -13,13 +13,7 @@
     <td><%= product.name %></td>
     <td><%= product.version %></td>
     <td><%= product.release_date %></td>
-    <td><a href="#" id="licenses_gen" product_id=<%=product.id%>>Genrate Licenses</a>&nbsp;&nbsp;&nbsp;
-    	<%product_licence = ProductLicense.find_all_by_product_id(product.id)%>
-    	<%if product_licence.empty?%>
-    	<a href="#" id="delete_product" class="a_product" value="<%=product.id%>">Delete Product</a></td>
-    	<%else%>
-    	Delete Product
-    	<%end%>
+    
 	
 
   </tr>
@@ -29,6 +23,7 @@
 <br />
 
 <a id="new_product" href="/products/new" class="btn btn-large btn-primary">Add New Product</a>
+<input type="button" id="licenses_gen" class="btn btn-large btn-primary" value="Genrate Licenses" />
 <%=render :partial => "product_model_box"%>
 
 

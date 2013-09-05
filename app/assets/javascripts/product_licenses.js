@@ -1,14 +1,22 @@
 $(document).on("click", "#generate_button", function() {
 	var keys_count = $("#keys_count").val();
-	var product_id = $("#prod_id").val();
+	// var product_id = $("#prod_id").val();
+	var product_list = new Array();
+	$('input[type=checkbox]').each (function(){
+				if(this.checked){
+					product_list.push(this.value)
+				}
+	});
+	
 	if ((keys_count > 100) || (keys_count < 1) || (keys_count == "")) {
 
 		$('#alert').show().find('strong').text('key must be between 1 to 100');
 
-	} else {
+	} 
+	else {
 		$.getJSON("/product_licenses/generate_keys", {
 			keys_count : keys_count,
-			product_id : product_id
+			product_list : product_list
 		}, function(data) {
 			if (data.valid) {
 				$('#product_model').modal('hide');

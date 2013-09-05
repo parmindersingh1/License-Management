@@ -76,14 +76,14 @@ float: left;
  float: left; 	
 }
 
-#licenses_gen {
+/*#licenses_gen {
     color: #08c;
   	text-decoration: underline;
 }
 #licenses_gen:hover {
 	background-color: #FFFFFF;
 	color: #08a;
-}
+}*/
 
 .a_product{
 	color: #08c;

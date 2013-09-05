@@ -9,6 +9,17 @@
 
   <div class="form-signin modal-body">
   <div class="alert alert-error" id="alert" style="display: none"></div>
+  <p>Select Products to generate keys....</p>
+  <% @products= Product.all %>
+  <%unless @products.nil?%>
+  <ul>
+  <%@products.each do |product|%>
+  
+  	<li><input type="checkbox" value="<%=product.id%>"><%=product.name%></li>
+  
+  <%end%>
+  </ul>
+  <%end%>
 	<input type="text" class="input-block-level" placeholder="enter no of keys to generate" id="keys_count">
 	
 	</div>

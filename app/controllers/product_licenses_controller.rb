@@ -6,8 +6,8 @@ class ProductLicensesController < ApplicationController
   # GET /product_licenses
   # GET /product_licenses.json
   def index
-    @products = Product.find(:all);
-    # @product_licenses = ProductLicense.paginate(:page => params[:page], :per_page => 10)
+    #@products = Product.find(:all);
+    @product_licenses = ProductLicense.find(:all)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -89,17 +89,27 @@ class ProductLicensesController < ApplicationController
   def generate_keys
     puts "-------#{params}"
     count=params[:keys_count]
+    product_list = params[:product_list]
     @error=true
     @generated_list=[]
     count.to_i.times do
       @list=SecureRandom.hex(3)
       @generated_list<<@list
-      @key=ProductLicense.new(:license_key => @list)
-      @key.product_id = params[:product_id]
+      
+      @key=ProductLicense.new()
+      @key.license_key = @list
+      # @key.product_id = params[:product_id]
       if @key.save
+        if (product_list.kind_of?(Array))
+          product_list.each do |prod|
+            product_object=Product.find_by_id(prod)
+            @key.products<<product_object
+          end
+        end
         @error=false
       end
     end
+    puts "the error is #{@error}"
     if @error
       render :json=> {:valid=>false, :notice=>"Error in key Generation"}
     else
@@ -157,7 +167,15 @@ def generate_license_key
       if license_key.is_assigned
         render :json=> {:valid=>false , :message=> "Key already generated for this license key"}
       else
-        @voices = license_key.product.name
+        @voices=""
+        
+        license_key.products.each do |voice|
+          unless voice.name.nil?
+            @voices=voice.name.to_s+","+@voices
+          end 
+        end
+        puts "the voices are #{@voices}"
+        @voices="hello"
         @generated_key = Digest::SHA1.hexdigest(@received_key.to_s + @machine_id.to_s)
         @string = @received_key+"  "+@machine_id+"  "+@email+"  "+@generated_key+"  "+@voices
         @encrypted_string = Base64.encode64(private_key.private_encrypt(@string)+@public_key_string)
