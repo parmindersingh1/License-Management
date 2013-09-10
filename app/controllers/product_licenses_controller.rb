@@ -7,6 +7,8 @@ class ProductLicensesController < ApplicationController
   # GET /product_licenses.json
   def index
     #@products = Product.find(:all);
+    
+
     @product_licenses = ProductLicense.find(:all)
 
     respond_to do |format|
@@ -149,12 +151,22 @@ def generate_license_key
     # open 'public_key.pem', 'w' do |io| io.write key.public_key.to_pem end
     public_key_file = 'public_key.pem'
     private_key_file = 'private_key.pem'
+    private_key = OpenSSL::PKey::RSA.new(File.read(private_key_file))
+     # data = 'Sign me!'
+    digest = OpenSSL::Digest::MD5.new
+    # pkey = OpenSSL::PKey::RSA.new(2048)
+    pkey = private_key
+    # signature = pkey.sign(digest, data)
+    pub_key = pkey.public_key
+    # puts pub_key.verify(digest, signature, data) # => true
+    
+    
     @received_key = params[:data][:license_key]
     @machine_id = params[:data][:machine_id]
     @email = params[:data][:email]
     
-    private_key = OpenSSL::PKey::RSA.new(File.read(private_key_file))
-    # @public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
+    
+    public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
     @public_key_string = File.read(public_key_file)
     puts "the public key string is #{@public_key_string}"
    
@@ -173,13 +185,16 @@ def generate_license_key
         end
         puts "the voices are #{@voices}"
         @voices="hello"
-        @generated_key = Digest::SHA1.hexdigest(@received_key.to_s + @machine_id.to_s)
-        @string = @received_key+"  "+@machine_id+"  "+@email+"  "+@generated_key+"  "+@voices
-        @encrypted_string = Base64.encode64(private_key.private_encrypt(@string)+@public_key_string)
-        puts "the encripted string is #{@encrypted_string}"
+        @generated_key = Digest::MD5.hexdigest(@received_key.to_s + @machine_id.to_s)
+        @string = @received_key+","+@email+","+@machine_id+","+@voices
+        signature = pkey.sign(digest, @string)
+        # @encrypted_string = Base64.encode64(private_key.private_encrypt(@string)+@public_key_string)
+        # puts "the encripted string is #{@encrypted_string}"
         
+        
+        puts "the result is #{public_key.verify(digest, signature, @string)}"
         license_key.update_attributes(:calculated_key=>@generated_key,:email=>@email,:machine_id=>@machine_id,:is_assigned=>true,:is_created=>true,:is_deleted=>false)
-        render :json=> {:valid=>true ,:digital_signature =>@encrypted_string, :voices=>@voices,:message=>"key generated key successfully"}
+        render :json=> {:valid=>true ,:digital_signature =>signature, :voices=>@voices,:message=>"key generated key successfully"}
       end
     else
       
