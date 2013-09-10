@@ -8,7 +8,7 @@ class ProductLicensesController < ApplicationController
   def index
     #@products = Product.find(:all);
     @product_licenses = ProductLicense.find(:all)
-
+     
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @product_licenses }
@@ -171,11 +171,13 @@ def generate_license_key
             @voices=voice.name.to_s+","+@voices
           end 
         end
-        puts "the voices are #{@voices}"
-        @voices="hello"
-        @generated_key = Digest::SHA1.hexdigest(@received_key.to_s + @machine_id.to_s)
+       
+        @generated_key = Digest::MD5.hexdigest(@received_key.to_s + @machine_id.to_s)
         @string = @received_key+"  "+@machine_id+"  "+@email+"  "+@generated_key+"  "+@voices
         @encrypted_string = Base64.encode64(private_key.private_encrypt(@string)+@public_key_string)
+       
+     
+       
         puts "the encripted string is #{@encrypted_string}"
         
         license_key.update_attributes(:calculated_key=>@generated_key,:email=>@email,:machine_id=>@machine_id,:is_assigned=>true,:is_created=>true,:is_deleted=>false)
