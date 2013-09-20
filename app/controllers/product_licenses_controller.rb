@@ -154,12 +154,8 @@ def generate_license_key
     private_key = OpenSSL::PKey::RSA.new(File.read(private_key_file))
      # data = 'Sign me!'
     digest = OpenSSL::Digest::MD5.new
-    # pkey = OpenSSL::PKey::RSA.new(2048)
-    pkey = private_key
-    # signature = pkey.sign(digest, data)
-    pub_key = pkey.public_key
-    # puts pub_key.verify(digest, signature, data) # => true
     
+   
     
     @received_key = params[:data][:license_key]
     @machine_id = params[:data][:machine_id]
@@ -184,13 +180,14 @@ def generate_license_key
           end 
         end
 
+        # our code
         
         @generated_key = Digest::MD5.hexdigest(@received_key.to_s + @machine_id.to_s)
         @string = @received_key+","+@email+","+@machine_id+","+@voices
-        signature =  Base64.encode64(pkey.sign(digest, @string))
-        # @encrypted_string = Base64.encode64(private_key.private_encrypt(@string)+@public_key_string)
-        # puts "the encripted string is #{@encrypted_string}"
+        signature =  Base64.encode64(private_key.sign(digest, @string))
         
+    
+           
      # puts "---------------#{signature}"
         
         puts "the result is #{public_key.verify(digest, Base64.decode64(signature), @string)}"
