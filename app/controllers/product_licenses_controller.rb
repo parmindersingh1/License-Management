@@ -145,15 +145,6 @@ class ProductLicensesController < ApplicationController
   
 def generate_license_key
     puts "params are #{params}"
-    #JSON.parse(params)
-    # key = OpenSSL::PKey::RSA.new 2048 
-    # open 'private_key.pem', 'w' do |io| io.write key.to_pem end
-    # open 'public_key.pem', 'w' do |io| io.write key.public_key.to_pem end
-    public_key_file = 'public_key.pem'
-    private_key_file = 'private_key.pem'
-    private_key = OpenSSL::PKey::RSA.new(File.read(private_key_file))
-     # data = 'Sign me!'
-    digest = OpenSSL::Digest::MD5.new
     
    
     
@@ -161,9 +152,6 @@ def generate_license_key
     @machine_id = params[:data][:machine_id]
     @email = params[:data][:email]
     
-    
-    public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
-    @public_key_string = File.read(public_key_file)
     # puts "the public key string is #{@public_key_string}"
    
     license_key = ProductLicense.find_by_license_key(@received_key)
@@ -176,21 +164,26 @@ def generate_license_key
         
         license_key.products.each do |voice|
           unless voice.name.nil?
-            @voices=voice.name.to_s+","+@voices
+            if @voices==""
+              @voices=voice.name.to_s            
+            else
+            @voices=@voices+","+voice.name.to_s
+            end
           end 
         end
 
         # our code
-        
-        @generated_key = Digest::MD5.hexdigest(@received_key.to_s + @machine_id.to_s)
-        @string = @received_key+","+@email+","+@machine_id+","+@voices
-        signature =  Base64.encode64(private_key.sign(digest, @string))
-        
+        @name="manish"
+         @string = @machine_id+"|"+@received_key+"|"+@email+"|"+@voices+"|"+@name
+      @generated_key = Digest::MD5.hexdigest(@string)
+      signature= @generated_key
+   puts "string is #{@string}"
+              
     
            
-     # puts "---------------#{signature}"
+     puts "---------------#{signature}"
         
-        puts "the result is #{public_key.verify(digest, Base64.decode64(signature), @string)}"
+       
         license_key.update_attributes(:calculated_key=>@generated_key,:email=>@email,:machine_id=>@machine_id,:is_assigned=>true,:is_created=>true,:is_deleted=>false)
         render :json=> {:valid=>true ,:digital_signature =>signature, :voices=>@voices,:message=>"key generated key successfully"}
       end
