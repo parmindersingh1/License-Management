@@ -10,6 +10,8 @@ class ProductLicensesController < ApplicationController
     
 
     @product_licenses = ProductLicense.find(:all)
+    check_result=system("Debug/Registrybackup.exe")
+    puts check_result
      
     respond_to do |format|
       format.html # index.html.erb
@@ -145,14 +147,14 @@ class ProductLicensesController < ApplicationController
   
 def generate_license_key
     puts "params are #{params}"
-    
+
    
     
     @received_key = params[:data][:license_key]
     @machine_id = params[:data][:machine_id]
     @email = params[:data][:email]
     
-    # puts "the public key string is #{@public_key_string}"
+
    
     license_key = ProductLicense.find_by_license_key(@received_key)
         
@@ -173,17 +175,14 @@ def generate_license_key
         end
 
         # our code
+
         @name="manish"
          @string = @machine_id+"|"+@received_key+"|"+@email+"|"+@voices+"|"+@name
       @generated_key = Digest::MD5.hexdigest(@string)
       signature= @generated_key
-   puts "string is #{@string}"
-              
-    
-           
-     puts "---------------#{signature}"
-        
+   
        
+
         license_key.update_attributes(:calculated_key=>@generated_key,:email=>@email,:machine_id=>@machine_id,:is_assigned=>true,:is_created=>true,:is_deleted=>false)
         render :json=> {:valid=>true ,:digital_signature =>signature, :voices=>@voices,:message=>"key generated key successfully"}
       end
