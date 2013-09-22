@@ -181,7 +181,7 @@ def generate_license_key
       @generated_key = Digest::MD5.hexdigest(@string)
       signature= @generated_key
    
-       
+puts signature       
 
         license_key.update_attributes(:calculated_key=>@generated_key,:email=>@email,:machine_id=>@machine_id,:is_assigned=>true,:is_created=>true,:is_deleted=>false)
         render :json=> {:valid=>true ,:digital_signature =>signature, :voices=>@voices,:message=>"key generated key successfully"}
