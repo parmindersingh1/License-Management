@@ -229,7 +229,7 @@ def generate_license_key
   end
   
   def show_licenses
-    @product_licenses = ProductLicense.find_all_by_product_id(params[:product_id])
+    @product_licenses = ProductLicense.all
     # @product_licenses=ProductLicense.paginate(:page => 10, :conditions => "product_id = #{params[:product_id]}")
     # @product_licenses=ProductLicense.where(:product_id => params[:product_id]).paginate(:page => params[:page], :per_page => 10)
     render :partial => "license_partial"
@@ -277,4 +277,17 @@ def generate_license_key
       format.json { render json: @product_licenses }
     end
   end
+  
+  def delete_keys
+    puts "the params are #{params}"
+    unless params[:keys].nil?
+      params[:keys].each do |key|
+        license_key = ProductLicense.find_by_id(key)
+        license_key.destroy
+      end
+    end
+    render :text =>  "Keys Deleted Successfully"
+  end
+  
+  
 end

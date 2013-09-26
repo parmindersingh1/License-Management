@@ -1,6 +1,7 @@
+<div id="outer_block" class="alert " style="display: none"></div><br />
 <div class="inline">
 
-<div class="container-div">
+<div class="container-div" id="licences_div">
 
 	<h1>Product Licenses</h1>
 <% unless @product_licenses.nil?%>
@@ -25,6 +26,7 @@
     <th>Updated by</th>
     <th>Updated date</th>
     -->
+    <th></th>
   </tr>
 </thead>
 <tbody>
@@ -55,7 +57,8 @@
     <!-- <td><%= product_license.is_deleted %></td> -->
     <!-- <td><%= product_license.created_by %></td>
     <td><%= product_license.updated_by %></td>
-    <td><%= product_license.updated_date %></td>    --> 
+    <td><%= product_license.updated_date %></td>    -->
+    <td><input type="checkbox" class="select_item" value="<%= product_license.id%>"/></td> 
   </tr>
 <% end %>
 </tbody>
@@ -70,9 +73,12 @@
 	});
 </script>
  
-
-
+<br />
+<br />
+<a id="reset_key" href="#" class="btn btn-large btn-primary">Reset Key</a>
+<a id="delete_key" href="#" class="btn btn-large btn-primary">Delete Key</a>
 </div>
+
 <div id="response_div"></div>
 
 

@@ -79,3 +79,57 @@ $(document).ready(function(){
 });
 ////////////////////////////////////////
 
+$(document).on("click", "#reset_key", function(event){
+	var key_list = new Array();
+	$('input[type=checkbox]').each (function(){
+				if(this.checked){
+					key_list.push(this.value)
+				}
+	});
+	
+	if (key_list.length==0){
+		$('#outer_block').empty();
+		$('.alert').show();
+		$('#outer_block').html("No key Selected. Please select atleast one key to Reset").removeClass("alert-success").addClass("alert-error");
+	}
+	else{
+		$.get("/products/allow_regeneration",{keys : key_list},function(data){	
+		$('#outer_block').empty();
+		$('.alert').show();
+		$('#outer_block').html(data).removeClass("alert-error").addClass("alert-success");
+		$('.select_item').prop("checked",false)
+	});
+	}
+});
+
+
+$(document).on("click", "#delete_key", function(event){
+	var key_list = new Array();
+	$('input[type=checkbox]').each (function(){
+				if(this.checked){
+					key_list.push(this.value)
+				}
+	});
+	
+	if (key_list.length==0){
+		$('#outer_block').empty();
+		$('.alert').show();
+		$('#outer_block').html("No key Selected. Please select atleast one key to Delete").removeClass("alert-success").addClass("alert-error");
+	}
+	else{
+		$.get("/product_licenses/delete_keys",{keys : key_list},function(data){	
+		$('#outer_block').empty();
+		$('.alert').show();
+		refereshpage();
+		$('#outer_block').html(data).removeClass("alert-error").addClass("alert-success");
+		
+	});
+	}
+});
+function refereshpage(){
+$.get("/product_licenses/show_licenses",function(data){
+	$("#licences_div").empty();
+	$("#licences_div").html(data);
+});
+	
+}

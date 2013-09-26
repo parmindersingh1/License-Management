@@ -5,7 +5,7 @@
     <th>Name</th>
     <th>Version</th>
     <th>Release date</th>
-    
+    <th></th>
   </tr>
 
 <% @products.each do |product| %>
@@ -13,7 +13,7 @@
     <td><%= product.name %></td>
     <td><%= product.version %></td>
     <td><%= product.release_date %></td>
-    
+    <td><input type="checkbox" class="product_name" value="<%= product.id%>" /></td>
 	
 
   </tr>
@@ -23,6 +23,7 @@
 <br />
 
 <a id="new_product" href="/products/new" class="btn btn-large btn-primary">Add New Product</a>
+<a id="delete_product" href="#" class="btn btn-large btn-primary">Delete Product</a>
 <input type="button" id="licenses_gen" class="btn btn-large btn-primary" value="Generate Licenses" />
 <%=render :partial => "product_model_box"%>
 

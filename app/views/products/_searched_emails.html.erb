@@ -1,3 +1,5 @@
+
+
 <% unless @searched_emails.nil?%>
 	<table class="table table-striped table-bordered table-condensed">
 		<tr>
@@ -8,7 +10,7 @@
     <th>Machine id</th>
     <th>Expiry date</th>
     <!-- <th>Reset counter</th>-->
-    <th>Allow regeneration</th>
+    <th>reset key</th>
     <th>Is assigned</th>
     <th>Is created</th>
     <th>Is deleted</th>
@@ -20,23 +22,50 @@
 	
 	<% searched_email = @searched_emails%>
   <tr>
-  	<td><%= searched_email.product.name%></td>
+  	<%all_products = ""%>
+    <% searched_email.products.each do |product| %>
+    	<% all_products= product.name.to_s+","+all_products%>
+    <%end %>
+  	<td><%= all_products%></td>
     <td><%= searched_email.license_key %></td>
     <td><%= searched_email.calculated_key %></td>
     <td><%= searched_email.email %></td>
     <td><%= searched_email.machine_id %></td>
     <td><%= searched_email.expiry_date %></td>
     <!-- <td><%= searched_email.reset_counter %></td>-->
-    <td><%=searched_email.allow_regeneration %></td>
-    <td><%= searched_email.is_assigned %></td>
-    <td><%= searched_email.is_created %></td>
-    <td><%= searched_email.is_deleted %></td>
+    <% if searched_email.allow_regeneration%>
+    <td>Yes</td>
+    <%else%>
+    <td>No</td>
+    <%end%>
+    <% if searched_email.is_assigned%>
+    <td>Yes</td>
+    <%else%>
+    <td>No</td>
+    <%end%>
+    <% if searched_email.is_created%>
+    <td>Yes</td>
+    <%else%>
+    <td>No</td>
+    <%end%>
+	<% if searched_email.is_deleted %>
+    <td>Yes</td>
+    <%else%>
+    <td>No</td>
+    <%end%>
     <!-- <td><%= searched_email.created_by %></td>
     <td><%= searched_email.updated_by %></td>  --> 
-    <td ><a style="color: blue" href="#" id="re_gen_id" license_id="<%= searched_email.id %>">Allow</a></td>  
+    <%if searched_email.allow_regeneration%>
+    <td >allow</td>
+    <%else%>
+    <td ><a style="color: blue" href="#" id="re_gen_id" license_id="<%= searched_email.id %>">Allow</a></td>
+    <%end%>  
   </tr>
   </table>
 
 <%else%>
-	<p> No key found for this email</p>
+	<div id="outer_block" class="alert" >
+		<p> Sorry! No keys found for this email</p>
+			
+	</div><br />
 <%end%>

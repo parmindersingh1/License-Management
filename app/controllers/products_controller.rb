@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   # GET /products.json
   before_filter :signed_in_user
   def index
-    @products = Product.all
+    @products = Product.find(:all,:conditions=>{:is_deleted => false})
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,8 +41,17 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(params[:product])
-
+    puts params
+    old_product = Product.find_by_name_and_is_deleted(params[:product][:name],true)
+    unless old_product.nil?
+      old_product.update_attributes(:version=>params[:product][:version],:release_date=>params[:product][:release_date],:is_deleted=>false)
+      respond_to do |format|
+       format.html { redirect_to products_url }
+      end     
+    else
+      @product = Product.new(params[:product])
+      @product.is_deleted = false
+   
     respond_to do |format|
       if @product.save
         format.html { redirect_to products_url }
@@ -52,6 +61,7 @@ class ProductsController < ApplicationController
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
+  end
   end
 
   # PUT /products/1
@@ -84,14 +94,25 @@ class ProductsController < ApplicationController
 
   def delete_product
     puts "params in destroy controller is #{params}"
-    @product = Product.find(params[:id])
-    product_keys = ProductLicense.find_all_by_product_id(@product)
-    puts "the product keys are #{product_keys}"
-    if product_keys.empty?
-      @product.destroy
-      render :json=> {:valid=>true, :notice=>"Product deleted successfully. Please Refresh page."}
+    @key_assigned = false
+    params[:products].each do |product|
+      @product = Product.find_by_id(product)
+      @product.product_licenses.each do |license|
+        if license.is_assigned
+          @key_assigned = true
+          break
+        else
+          @key_assigned = false
+        end
+      end
+    end
+    puts "the errors are #{@key_assigned}"
+    if @key_assigned
+      render :json=> {:valid=>false, :notice=>"Dependency Error .This keys are assigned to users"}
     else
-      render :json=> {:valid=>false, :notice=>"Dependency Error .This Product can not be deleted"}
+      @product.update_attributes(:is_deleted=>true)
+      render :json=> {:valid=>true, :notice=>"Product deleted successfully. Please Refresh page."}
+      
     end
   end
 
@@ -107,9 +128,12 @@ class ProductsController < ApplicationController
   end
   def allow_regeneration
     puts "params are #{params}"
-    license = ProductLicense.find_by_id(params[:id])
-    license.update_attributes(:allow_regeneration=>true)
-    @searched_emails = ProductLicense.find_by_id(params[:id])
-    render :partial => "searched_emails"  
+    unless params[:key].nil?
+      params[:keys].each do |key|
+        license = ProductLicense.find_by_id(key)
+        license.update_attributes(:allow_regeneration=>true)
+      end
+    end
+    render :text => "Keys Reset Successfully"  
   end
 end
