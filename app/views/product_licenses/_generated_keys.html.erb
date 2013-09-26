@@ -1,0 +1,65 @@
+<div class="inline reports">
+<h1 style="width: 410px">Generated Licenses</h1><%= link_to "Export Excel" ,{:controller=>"/product_licenses",:action=>"currently_generated_licenses",:format => 'xls', :licenses=>@generated_licenses}, :class=>'btn btn-large btn-primary',:id=>"generate_report"%>
+</div>
+<table id="generated_license_table" class="table table-striped table-bordered table-condensed" style="alignment-adjust: central">
+  <thead>
+  <tr>
+  	
+    <th>License key</th>
+    <th>Calculated key</th>
+    <th>Email</th>
+    <th>Machine id</th>
+    <th>Voices</th>
+    <!-- <th>Expiry date</th> -->
+    <!-- <th>Reset counter</th>
+    <th>Allow regeneration</th> -->
+    <th>Is assigned</th>
+    <th>Is Key Generated</th>
+    <!-- <th>Is deleted</th> -->
+    <!-- <th>Created by</th>
+    <th>Updated by</th>
+    <th>Updated date</th>
+    -->
+  </tr>
+</thead>
+<tbody>
+<% @generated_licenses.each do |product_license| %>
+  <tr>
+  	
+    <td><%= product_license.license_key %></td>
+    <td><%= product_license.calculated_key %></td>
+    <td><%= product_license.email %></td>
+    <td><%= product_license.machine_id %></td>
+    <%all_products = ""%>
+    <% product_license.products.each do |product| %>
+    	<% all_products= product.name.to_s+","+all_products%>
+    <%end %>
+    <td><%=all_products%></td>
+    <!-- <td><%= product_license.expiry_date %></td> -->
+    <!-- <td><%= product_license.reset_counter %></td>
+    <td><%= product_license.allow_regeneration %></td> -->
+    <%if product_license.is_assigned?%>
+    <td>Yes</td>
+    <%else%>
+    <td>No</td>
+    <%end%>
+    <%if product_license.is_created?%>
+    <td>Yes</td>
+    <%else%>
+    <td>No</td>
+    <%end%>
+    <!-- <td><%= product_license.is_deleted %></td> -->
+    <!-- <td><%= product_license.created_by %></td>
+    <td><%= product_license.updated_by %></td>
+    <td><%= product_license.updated_date %></td>    --> 
+  </tr>
+<% end %>
+</table>
+</tbody>
+<script>
+	$(document).ready(function(){
+		$("#generated_license_table").dataTable({
+			"sPaginationType": "bootstrap"
+		});	
+	});
+</script>

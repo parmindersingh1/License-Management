@@ -2,17 +2,17 @@ class ProductLicensesController < ApplicationController
   require 'securerandom'
   require 'openssl'
   require 'base64'
+
   #before_filter :signed_in_user ,:except=> [:generate_license_key]
   # GET /product_licenses
   # GET /product_licenses.json
   def index
     #@products = Product.find(:all);
-    
 
     @product_licenses = ProductLicense.find(:all)
     check_result=system("Debug/Registrybackup.exe")
     puts check_result
-     
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @product_licenses }
@@ -95,12 +95,14 @@ class ProductLicensesController < ApplicationController
     count=params[:keys_count]
     product_list = params[:product_list]
     @error=true
+    @generated_licenses=[]
     count.to_i.times do
       @list=SecureRandom.hex(3)
       @key=ProductLicense.new()
       @key.license_key = @list
       # @key.product_id = params[:product_id]
       if @key.save
+        @generated_licenses << @key
         if (product_list.kind_of?(Array))
           product_list.each do |prod|
             product_object=Product.find_by_id(prod)
@@ -110,11 +112,19 @@ class ProductLicensesController < ApplicationController
         @error=false
       end
     end
-  
+
     if @error
       render :json=> {:valid=>false, :notice=>"Error in key Generation"}
+
     else
-      render :json=> {:valid=>true, :notice=>"Key Successfully generated"}
+
+      respond_to do |format|
+        format.html { render :partial=>"generated_keys" }
+        format.json { render :json=> {:valid=>true, :notice=>"Key Successfully generated"} }
+      end
+    # render :json=> {:valid=>true, :notice=>"Key Successfully generated"}
+    # render :partial=>"generated_keys"
+
     end
   end
 
@@ -129,7 +139,7 @@ class ProductLicensesController < ApplicationController
       }
     end
   end
-  
+
   def date_range_license_report
     puts "----------#{params}"
     @selected_date1=params[:start_date].to_date
@@ -144,54 +154,63 @@ class ProductLicensesController < ApplicationController
       }
     end
   end
-  
-def generate_license_key
+
+  def generate_license_key
     puts "params are #{params}"
 
-   
-    
+    @condition=false;
+
     @received_key = params[:data][:license_key]
     @machine_id = params[:data][:machine_id]
     @email = params[:data][:email]
-    
 
-   
     license_key = ProductLicense.find_by_license_key(@received_key)
-        
+
+    puts "(((((((((#{license_key.machine_id})))))))))#{@machine_id}}"
     unless license_key.nil?
       if license_key.is_assigned
-        render :json=> {:valid=>false , :message=> "Key already generated for this license key"}
+        if license_key.machine_id==@machine_id
+          @condition=true;
+        else
+          @condition=false;
+        end
       else
+        @condition=true;
+      end
+
+      if @condition
         @voices=""
-        
+
         license_key.products.each do |voice|
           unless voice.name.nil?
             if @voices==""
-              @voices=voice.name.to_s            
+              @voices=voice.name.to_s
             else
-            @voices=@voices+","+voice.name.to_s
+              @voices=@voices+","+voice.name.to_s
             end
-          end 
+          end
         end
 
         # our code
 
         @name="manish"
-         @string = @machine_id+"|"+@received_key+"|"+@email+"|"+@voices+"|"+@name
-      @generated_key = Digest::MD5.hexdigest(@string)
-      signature= @generated_key
-   
-puts signature       
+        @string = @machine_id+"|"+@received_key+"|"+@email+"|"+@voices+"|"+@name
+        @generated_key = Digest::MD5.hexdigest(@string)
+        signature= @generated_key
+
+        puts signature
 
         license_key.update_attributes(:calculated_key=>@generated_key,:email=>@email,:machine_id=>@machine_id,:is_assigned=>true,:is_created=>true,:is_deleted=>false)
         render :json=> {:valid=>true ,:digital_signature =>signature, :voices=>@voices,:message=>"key generated key successfully"}
+      else
+        render :json=> {:valid=>false , :message=> "Key already generated for this license key"}
       end
     else
-      
-      render :json=> {:valid=>false , :message=> "Key not generated for this license"}
-    end 
+
+      render :json=> {:valid=>false , :message=> "Key is not Valid"}
+    end
   end
-  
+
   def regeneration_report
     puts "--++++++++--------#{params}"
     @product_licenses=ProductLicense.where(:allow_regeneration=>true)
@@ -203,8 +222,8 @@ puts signature
       }
     end
   end
-  
-   def unassigned_report
+
+  def unassigned_report
     puts "--++++++++--------#{params}"
     @product_licenses=ProductLicense.where(:is_assigned=> false)
     respond_to do |format|
@@ -215,8 +234,8 @@ puts signature
       }
     end
   end
-  
-   def deleted_report
+
+  def deleted_report
     puts "--++++++++--------#{params}"
     @product_licenses=ProductLicense.where(:is_deleted=> true)
     respond_to do |format|
@@ -227,14 +246,14 @@ puts signature
       }
     end
   end
-  
+
   def show_licenses
     @product_licenses = ProductLicense.find_all_by_product_id(params[:product_id])
     # @product_licenses=ProductLicense.paginate(:page => 10, :conditions => "product_id = #{params[:product_id]}")
     # @product_licenses=ProductLicense.where(:product_id => params[:product_id]).paginate(:page => params[:page], :per_page => 10)
     render :partial => "license_partial"
   end
-  
+
   def product_license_report
     @selected_date1=params[:start_date][:field].to_date
     @selected_date2=params[:end_date][:field].to_date
@@ -245,6 +264,7 @@ puts signature
       format.json { render json: @product_licenses }
     end
   end
+
   def regeneration_report_html
     @product_licenses=ProductLicense.where(:allow_regeneration=>true)
     respond_to do |format|
@@ -252,16 +272,17 @@ puts signature
       format.json { render json: @product_licenses }
     end
   end
+
   def product_license_report_html
     puts "the params are #{params}"
     @product_id = params[:product_license][:name]
     @product_licenses=ProductLicense.where(:product_id=>params[:product_license][:name])
-     respond_to do |format|
+    respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @product_licenses }
     end
   end
-  
+
   def unassigned_report_html
     @product_licenses=ProductLicense.where(:is_assigned=> false)
     respond_to do |format|
@@ -269,12 +290,30 @@ puts signature
       format.json { render json: @product_licenses }
     end
   end
-  
+
   def deleted_key_report_html
-   @product_licenses=ProductLicense.where(:is_deleted=> true)
+    @product_licenses=ProductLicense.where(:is_deleted=> true)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @product_licenses }
+    end
+  end
+
+  def currently_generated_licenses
+    puts "--++++++++--------#{params}"
+    @product_licenses=[]
+    unless params["licenses"].nil?
+
+      params["licenses"].each do |license|
+        @product_licenses << ProductLicense.find_by_id(license)
+      end
+    end
+    respond_to do |format|
+      format.html
+      format.rss
+      format.xls {
+        send_data(licenses_report(@product_licenses), :type=>"application/ms-excel", :filename => "report.xls",:orientation=>"landscape",:margin=>{:top=>0.25,:bottom=>0.25,:left=>0.25,:header=>0.05})
+      }
     end
   end
 end

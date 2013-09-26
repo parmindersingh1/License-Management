@@ -7,23 +7,38 @@ $(document).on("click", "#generate_button", function() {
 					product_list.push(this.value)
 				}
 	});
+	if(product_list.length==0)
+	{
+		$('.alert').show().text('Select Products');
 	
-	if ((keys_count > 100) || (keys_count < 1) || (keys_count == "")) {
+	}
+	else if((keys_count ==null) || (keys_count == ""))
+	{
+			$('.alert').show().text('Enter number of keys to generate');
+	}
+	
+	else if ((keys_count > 100) || (keys_count < 1) ) {
 
-		$('#alert').show().find('strong').text('key must be between 1 to 100');
+		$('.alert').show().text('key must be between 1 to 100');
 
 	} 
 	else {
-		$.getJSON("/product_licenses/generate_keys", {
+		$.get("/product_licenses/generate_keys", {
 			keys_count : keys_count,
 			product_list : product_list
-		}, function(data) {
-			if (data.valid) {
+		}, function(data) {	
+			if(!data.valid)		{	
 				$('#product_model').modal('hide');
 				$('#outer_block').empty();
 				$('.alert').show();
-				$('#outer_block').html('<a class="close"  href="#">&times;</a>' + data.notice).removeClass("alert-error").addClass("alert-success");
-			}
+				//$('#outer_block').html('<a class="close"  href="#">&times;</a>' + data.notice).removeClass("alert-error").addClass("alert-success");
+			  $("#generated_license").empty();
+			  $("#generated_license").html(data);
+			 }
+			 else{
+			 	
+			 $('.alert').show().find('strong').text('Error Generating Keys');
+			 }
 		});
 
 	}

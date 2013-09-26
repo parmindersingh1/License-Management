@@ -43,7 +43,7 @@ body {
 
 }
 #keys_count {
-	
+	width:200px;
 	margin: 0;
 }
 .datepicker {
