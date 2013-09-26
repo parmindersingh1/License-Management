@@ -34,6 +34,7 @@ end
 
 group :production do
  gem "pg", "0.16.0"
+ gem "taps"
 end
 
 gem 'jquery-rails'

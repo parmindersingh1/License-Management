@@ -110,6 +110,8 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.2)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec-core (2.13.1)
     rspec-expectations (2.13.0)
       diff-lcs (>= 1.1.3, < 2.0)
@@ -133,6 +135,9 @@ GEM
       ffi (>= 1.0.7)
       json_pure
       rubyzip
+    sequel (3.20.0)
+    sinatra (1.0)
+      rack (>= 1.0)
     spreadsheet (0.6.8)
       ruby-ole (>= 1.0)
     sprockets (2.2.2)
@@ -140,6 +145,11 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    taps (0.3.24)
+      rack (>= 1.0.1)
+      rest-client (>= 1.4.0, < 1.7.0)
+      sequel (~> 3.20.0)
+      sinatra (~> 1.0.0)
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
@@ -173,5 +183,6 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   selenium-webdriver (= 2.0.0)
   spreadsheet
+  taps
   therubyracer
   uglifier (>= 1.0.3)
