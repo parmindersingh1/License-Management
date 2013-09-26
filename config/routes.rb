@@ -9,7 +9,9 @@ LicenseManagement::Application.routes.draw do
   resources :product_licenses do
     collection do
       get :generate_keys, :regeneration_report, :unassigned_report, :deleted_report,:show_licenses ,:date_range_license_report,:regeneration_report_html,
-          :license_report,:unassigned_report_html,:deleted_key_report_html,:delete_keys
+
+          :license_report,:unassigned_report_html,:deleted_key_report_html,:delete_keys, :currently_generated_licenses
+
       post :generate_license_key,:product_license_report,:product_license_report_html
     end
   end

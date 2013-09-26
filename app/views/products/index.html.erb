@@ -1,3 +1,4 @@
+<div id="generated_license">
 <h2>All products</h2>
 <div id="outer_block" class="alert " style="display: none"></div><br />
 <table class="table table-striped table-bordered table-condensed">
@@ -6,6 +7,7 @@
     <th>Version</th>
     <th>Release date</th>
     <th></th>
+
   </tr>
 
 <% @products.each do |product| %>
@@ -13,18 +15,21 @@
     <td><%= product.name %></td>
     <td><%= product.version %></td>
     <td><%= product.release_date %></td>
-    <td><input type="checkbox" class="product_name" value="<%= product.id%>" /></td>
-	
 
+    <td><input type="checkbox" class="product_name" value="<%= product.id%>" /></td>
   </tr>
 <% end %>
 </table>
 
 <br />
-
+<input type="text" class="input-block-level" placeholder="enter no of keys to generate" id="keys_count">
+<br />
+<br />
 <a id="new_product" href="/products/new" class="btn btn-large btn-primary">Add New Product</a>
 <a id="delete_product" href="#" class="btn btn-large btn-primary">Delete Product</a>
-<input type="button" id="licenses_gen" class="btn btn-large btn-primary" value="Generate Licenses" />
+<input type="button" id="generate_button" class="btn btn-large btn-primary" value="Genrate Licenses" />
+
 <%=render :partial => "product_model_box"%>
+</div>
 
 
