@@ -128,10 +128,10 @@ class ProductsController < ApplicationController
   end
   def allow_regeneration
     puts "params are #{params}"
-    unless params[:key].nil?
-      params[:keys].each do |key|
+    unless params[:keys].nil?
+      params[:keys].each do |key|      
         license = ProductLicense.find_by_id(key)
-        license.update_attributes(:allow_regeneration=>true)
+        license.update_attributes(:allow_regeneration=>true,:is_assigned=>false)
       end
     end
     render :text => "Keys Reset Successfully"  

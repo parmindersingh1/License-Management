@@ -27,7 +27,7 @@ $(document).on("click","#delete_selected_product",function(event){
 	if (product_list.length == 0){
 		$('#outer_block').empty();
 		$('.alert').show();
-		$('#outer_block').html('<a class="close"  href="#">&times;</a>Please Select Products to delete').removeClass("alert-success").addClass("alert-error");;
+		$('#outer_block').html('<a class="close"  href="#">&times;</a>Please Select Products to delete').removeClass("alert-success").addClass("alert-error");
 	}
 	else
 	{

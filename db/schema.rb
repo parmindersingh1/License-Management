@@ -41,23 +41,14 @@ ActiveRecord::Schema.define(:version => 20130925095908) do
     t.string   "name"
     t.string   "version"
     t.date     "release_date"
-    t.integer  "tenant_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.boolean  "is_deleted"
   end
 
-  create_table "tenants", :force => true do |t|
-    t.string   "name"
-    t.string   "url"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "password"
-    t.integer  "tenant_id"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.string   "password_digest"

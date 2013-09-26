@@ -29,11 +29,11 @@ module ProductLicensesHelper
     data[row_index,column_index+7]="allow regeneration"
     data[row_index,column_index+8]="is assigned"
     data[row_index,column_index+9]="is created"
-    data[row_index,column_index+10]="is deleted"
-    data[row_index,column_index+11]="created by"
-    data[row_index,column_index+12]="updated by"
-    data[row_index,column_index+13]="updated date"
-    data[row_index,column_index+14]="created at"
+    # data[row_index,column_index+10]="is deleted"
+    data[row_index,column_index+10]="created by"
+    data[row_index,column_index+11]="updated by"
+    data[row_index,column_index+12]="updated date"
+    data[row_index,column_index+13]="created at"
 
     product_licenses.each_with_index do |lic,i|
       data[row_index+i+1,column_index]=lic.license_key
@@ -62,15 +62,15 @@ module ProductLicensesHelper
       else
         data[row_index+i+1,column_index+9]="No"
       end
-      if lic.is_deleted?
-        data[row_index+i+1,column_index+10]="Yes"
-      else
-        data[row_index+i+1,column_index+10]="No"
-      end
-      data[row_index+i+1,column_index+11]=lic.created_by
-      data[row_index+i+1,column_index+12]=lic.updated_by
-      data[row_index+i+1,column_index+13]=lic.updated_date
-      data[row_index+i+1,column_index+14]=lic.created_at
+      # if lic.is_deleted?
+        # data[row_index+i+1,column_index+10]="Yes"
+      # else
+        # data[row_index+i+1,column_index+10]="No"
+      # end
+      data[row_index+i+1,column_index+10]=lic.created_by
+      data[row_index+i+1,column_index+11]=lic.updated_by
+      data[row_index+i+1,column_index+12]=lic.updated_date
+      data[row_index+i+1,column_index+13]=lic.created_at
     end
 
     blob = StringIO.new('')
