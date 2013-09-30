@@ -166,7 +166,7 @@ class ProductLicensesController < ApplicationController
 
     license_key = ProductLicense.find_by_license_key(@received_key)
 
-    puts "(((((((((#{license_key.machine_id})))))))))#{@machine_id}}"
+    
     unless license_key.nil?
       if license_key.is_assigned
         if license_key.machine_id==@machine_id
@@ -194,7 +194,8 @@ class ProductLicensesController < ApplicationController
         # our code
 
         @name="manish"
-        @string = @machine_id+"|"+@received_key+"|"+@email+"|"+@voices+"|"+@name
+        @string=@name+"|"+@received_key+"|"+@email+"|"+@machine_id+"|"+@voices
+        # @string = @machine_id+"|"+@received_key+"|"+@email+"|"+@voices+"|"+@name
         @generated_key = Digest::MD5.hexdigest(@string)
         signature= @generated_key
 
