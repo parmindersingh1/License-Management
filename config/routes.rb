@@ -12,7 +12,7 @@ LicenseManagement::Application.routes.draw do
 
           :license_report,:unassigned_report_html,:deleted_key_report_html,:delete_keys, :currently_generated_licenses
 
-      post :generate_license_key,:product_license_report,:product_license_report_html
+      post :generate_license_key,:product_license_report,:product_license_report_html,:manual_license_generate,:create_manual_license
     end
   end
 

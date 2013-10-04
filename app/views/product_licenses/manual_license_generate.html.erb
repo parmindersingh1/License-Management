@@ -1,0 +1,24 @@
+
+<%=form_for :product_licenses,:url=>{:action=>"create_manual_license"}, :html =>{ :class=> "form-signin"} do |f|%>
+<h2 class="form-signin-heading">Generate License</h2>
+  <div class="control-group">
+  <div class="field controls"> 
+    <%= f.text_field :license_key, :class => "input-block-level ",:value=>@licenses_ley.license_key,:readonly=>true%>
+    <p class="help-block"></p>
+  </div>
+  <div class="field controls"> 
+    <%= f.text_field :user_name, :class => "input-block-level",:placeholder=>"User Full Name", :required=> true%>
+    <p class="help-block"></p>
+  </div>
+  <div class="field">   
+    <%= f.email_field :email, :class => "input-block-level",:placeholder=>"Email", :required=> true, :minlength=>"10"%>
+	
+  </div>
+ <div class="field"> 
+      <%= f.text_field :machine_key, :class => "input-block-level",:placeholder=>"Machine Key", :required=> true %>
+  </div>
+   <div class="actions">
+    <%= f.submit 'Generate License',:class=>"btn btn-large btn-primary"%>
+  </div>
+  </div>
+  <%end%>

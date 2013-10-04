@@ -332,5 +332,53 @@ class ProductLicensesController < ApplicationController
       }
     end
   end
+  
+  def manual_license_generate
+    puts "the params are #{params}"
+    unless params[:license_id].nil?
+      @licenses_ley = ProductLicense.find_by_id (params[:license_id])
+    end
+  
+  end
+  def create_manual_license
+    puts "the params in create licenses is #{params}"
+    unless params[:product_licenses].nil?
+      received_key = params[:product_licenses][:license_key]
+      machine_key = params[:product_licenses][:machine_key]
+      email= params[:product_licenses][:email]
+      user_name = params[:product_licenses][:user_name]
+      
+      
+      license_key = ProductLicense.find_by_license_key(received_key)
+      @voices=""
+    
+      unless license_key.nil?
+        license_key.products.each do |voice|
+          unless voice.nil?
+            if @voices==""
+              @voices=voice.name.to_s
+            else
+              @voices=@voices+","+voice.name.to_s
+            end
+          end
+        end
+      end
+        # our code
+      @string = ""
+      @name="manish"
+      @string=@name+"|"+received_key+"|"+email+"|"+machine_key+"|"+@voices
+      # @string = @machine_id+"|"+@received_key+"|"+@email+"|"+@voices+"|"+@name
+      @generated_key = Digest::MD5.hexdigest(@string)
+      signature= @generated_key
+      license_file = File.new("vocalizer_license.ini", "w")
+      license_file.puts("[info]","username = #{user_name}","userid = #{email}","machinekey = #{machine_key}","voices = #{@voices}","licenseid = #{received_key}","distributor = saksham", "signature = #{signature}")
+      license_file.close
+
+      license_key.update_attributes(:calculated_key=>@generated_key,:email=>email,:machine_id=>machine_key,:is_assigned=>true,:is_created=>true,:is_deleted=>false)
+      
+      send_file 'vocalizer_license.ini', :type => 'text', :disposition => 'downloaded'
+     
+    end
+  end
 
 end
