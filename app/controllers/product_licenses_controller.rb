@@ -334,14 +334,18 @@ class ProductLicensesController < ApplicationController
   end
   
   def manual_license_generate
-    puts "the params are #{params}"
+    
     unless params[:license_id].nil?
-      @licenses_ley = ProductLicense.find_by_id (params[:license_id])
+      @licenses_key = ProductLicense.find_by_id (params[:license_id])
     end
   
   end
   def create_manual_license
-    puts "the params in create licenses is #{params}"
+    
+    if File.exist?("vocalizer_license.ini")
+      File.delete("vocalizer_license.ini") 
+    end
+
     unless params[:product_licenses].nil?
       received_key = params[:product_licenses][:license_key]
       machine_key = params[:product_licenses][:machine_key]

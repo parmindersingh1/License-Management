@@ -3,7 +3,7 @@
 <h2 class="form-signin-heading">Generate License</h2>
   <div class="control-group">
   <div class="field controls"> 
-    <%= f.text_field :license_key, :class => "input-block-level ",:value=>@licenses_ley.license_key,:readonly=>true%>
+    <%= f.text_field :license_key, :class => "input-block-level ",:value=>(@licenses_key.license_key unless @licenses_key.nil?),:required=> true,:readonly=>true%>
     <p class="help-block"></p>
   </div>
   <div class="field controls"> 
