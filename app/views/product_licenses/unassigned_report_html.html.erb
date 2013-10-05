@@ -8,6 +8,7 @@
   <thead>
   <tr>
   	
+  	  <th></th>
     <th>License key</th>
     <th>Calculated key</th>
     <th>Email</th>
@@ -23,13 +24,13 @@
     <th>Updated by</th>
     <th>Updated date</th>
     -->
-    <th></th>
+  
   </tr>
 </thead>
 <tbody>
 <% @product_licenses.each do |product_license| %>
   <tr>
-  	
+  	<td><%=radio_button_tag "license_id", product_license.id,true %></td>  
     <td><%= product_license.license_key %></td>
     <td><%= product_license.calculated_key %></td>
     <td><%= product_license.email %></td>
@@ -56,7 +57,7 @@
     <!-- <td><%= product_license.created_by %></td>
     <td><%= product_license.updated_by %></td>
     <td><%= product_license.updated_date %></td>    -->
-    <td><%=radio_button_tag "license_id", product_license.id,true %></td>  
+    
   </tr>
 <% end %>
 </table>
