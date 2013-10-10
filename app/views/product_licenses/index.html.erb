@@ -70,6 +70,11 @@
 		$("#license_table").dataTable({
 			"sPaginationType": "bootstrap"
 		});	
+		
+		$("#license_table tbody").removeAttr("role");
+		$("#license_table tbody").removeAttr("aria-live");
+		$("#license_table tbody").removeAttr("aria-relevant");
+		
 	});
 </script>
  

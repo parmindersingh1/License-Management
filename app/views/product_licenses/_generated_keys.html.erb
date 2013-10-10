@@ -61,5 +61,9 @@
 		$("#generated_license_table").dataTable({
 			"sPaginationType": "bootstrap"
 		});	
+		
+		$("#generated_license_table tbody").removeAttr("role");
+		$("#generated_license_table tbody").removeAttr("aria-live");
+		$("#generated_license_table tbody").removeAttr("aria-relevant");
 	});
 </script>

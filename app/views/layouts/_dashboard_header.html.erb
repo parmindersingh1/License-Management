@@ -22,7 +22,7 @@
 								<a href="/product_licenses">Show Licenses</a>
 							</li>
 						</ul>
-					</li>					
+					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -32,17 +32,11 @@
 							<li>
 								<%= link_to "Regeneration Reports", {:controller=>"/product_licenses", :action=>"regeneration_report_html"}%>
 							</li>
-							<!-- <li>
-								<a id="product_license" href="#"> Product License</a>
-							</li> -->
+
 							<li>
 								<%= link_to "Unassigned License", {:controller=>"/product_licenses", :action=>"unassigned_report_html"}%>
 							</li>
-							<!-- <li>
-								<%= link_to "Deleted License", {:controller=>"/product_licenses", :action=>"deleted_key_report_html"}%>
-							</li> -->
-							<!-- <li class="divider"></li>
-							<li class="nav-header">Nav header</li> -->
+
 						</ul>
 					</li>
 					<% if signed_in? %>
@@ -64,25 +58,20 @@
 							<li>
 								<a href="/users">Delete User</a>
 							</li>
-							<!-- <li>
-								<a href="/products/reset_requests">Allow Key Regeneration</a>
-							</li>
-							<li>
-								<a href="#">Delete Key</a>
-							</li> -->
+
 							<li>
 								<%= link_to  "Add New User", signup_path%>
 							</li>
 						</ul>
 					</li>
 					<%end%>
-					
+
 					<%else%>
 					<li>
 						<a href="/sessions/new">Sign In</a>
 					</li>
 					<%end%>
-					
+
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>

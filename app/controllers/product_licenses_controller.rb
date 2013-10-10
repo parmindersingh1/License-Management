@@ -340,6 +340,7 @@ class ProductLicensesController < ApplicationController
     end
   
   end
+  
   def create_manual_license
     
     if File.exist?("vocalizer_license.ini")
