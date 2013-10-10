@@ -335,8 +335,8 @@ class ProductLicensesController < ApplicationController
   
   def manual_license_generate
     
-    unless params[:license_id].nil?
-      @licenses_key = ProductLicense.find_by_id (params[:license_id])
+    unless params[:product_licenses][:id].nil?
+      @licenses_key = ProductLicense.find_by_id (params[:product_licenses][:id])
     end
   
   end
