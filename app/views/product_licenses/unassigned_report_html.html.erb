@@ -1,5 +1,5 @@
 <div class="inline reports">
-	<h1 style="width: 410px">Unassigned License</h1><%= link_to "Export Excel" ,{:controller=>"/product_licenses",:action=>"unassigned_report",:format => 'xls'}, :class=>'btn btn-large btn-primary',:id=>"generate_report"%>
+	<h1 style="width: 500px">Unassigned License</h1><%= link_to "Export Excel" ,{:controller=>"/product_licenses",:action=>"unassigned_report",:format => 'xls'}, :class=>'btn btn-large btn-primary',:id=>"generate_report"%>
 </div>
 <%= form_for :product_licenses , :url=>{:action=>'manual_license_generate'} do |f| %>
 <%unless @product_licenses.nil?%>
