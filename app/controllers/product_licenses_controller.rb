@@ -201,13 +201,12 @@ class ProductLicensesController < ApplicationController
 
         puts signature
 
-        license_key.update_attributes(:calculated_key=>@generated_key,:email=>@email,:machine_id=>@machine_id,:is_assigned=>true,:is_created=>true,:is_deleted=>false)
+        license_key.update_attributes(:calculated_key=>@generated_key,:email=>@email,:machine_id=>@machine_id,:is_assigned=>true,:is_created=>true,:is_deleted=>false,:updated_date=>Date.today)
         render :json=> {:valid=>true ,:digital_signature =>signature, :voices=>@voices,:message=>"key generated key successfully"}
       else
         render :json=> {:valid=>false , :message=> "Key already generated for this license key"}
       end
     else
-
       render :json=> {:valid=>false , :message=> "Key is not Valid"}
     end
   end
@@ -259,7 +258,7 @@ class ProductLicensesController < ApplicationController
     @selected_date1=params[:start_date][:field].to_date
     @selected_date2=params[:end_date][:field].to_date
     puts "#{@selected_date1 } ----------------#{@selected_date2 }"
-    @product_licenses=ProductLicense.where(:created_at => @selected_date1.beginning_of_day..@selected_date2.end_of_day)
+    @product_licenses=ProductLicense.where(:updated_date => @selected_date1.beginning_of_day..@selected_date2.end_of_day)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @product_licenses }
@@ -379,7 +378,7 @@ class ProductLicensesController < ApplicationController
       license_file.puts("[info]","username = #{user_name}","userid = #{email}","machinekey = #{machine_key}","voices = #{@voices}","licenseid = #{received_key}","distributor = saksham", "signature = #{signature}")
       license_file.close
 
-      license_key.update_attributes(:calculated_key=>@generated_key,:email=>email,:machine_id=>machine_key,:is_assigned=>true,:is_created=>true,:is_deleted=>false)
+      license_key.update_attributes(:calculated_key=>@generated_key,:email=>email,:machine_id=>machine_key,:is_assigned=>true,:is_created=>true,:is_deleted=>false,:updated_date=>Date.today)
       
       send_file 'vocalizer_license.ini', :type => 'text', :disposition => 'downloaded'
      

@@ -3,18 +3,22 @@
 <h2 class="form-signin-heading">Generate License</h2>
   <div class="control-group">
   <div class="field controls"> 
+  	<%= f.label :license_key %>
     <%= f.text_field :license_key, :class => "input-block-level ",:value=>(@licenses_key.license_key unless @licenses_key.nil?),:required=> true,:readonly=>true%>
     <p class="help-block"></p>
   </div>
   <div class="field controls"> 
+  	 <%= f.label :user_name %>
     <%= f.text_field :user_name, :class => "input-block-level",:placeholder=>"User Full Name", :required=> true%>
     <p class="help-block"></p>
   </div>
   <div class="field">   
+  	<%= f.label :email %>
     <%= f.email_field :email, :class => "input-block-level",:placeholder=>"Email", :required=> true, :minlength=>"10"%>
 	
   </div>
  <div class="field"> 
+ 	<%= f.label :machine_key %>
       <%= f.text_field :machine_key, :class => "input-block-level",:placeholder=>"Machine Key", :required=> true %>
   </div>
    <div class="actions">
