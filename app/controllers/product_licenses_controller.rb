@@ -165,15 +165,15 @@ class ProductLicensesController < ApplicationController
     @email = params[:data][:email]
 
     license_key = ProductLicense.find_by_license_key(@received_key)
-
     
     unless license_key.nil?
       if license_key.is_assigned
-        if license_key.machine_id==@machine_id
-          @condition=true;
-        else
-          @condition=false;
-        end
+        # if license_key.machine_id==@machine_id
+          # @condition=true;
+        # else
+          # @condition=false;
+        # end
+        @condition=false
       else
         @condition=true;
       end
