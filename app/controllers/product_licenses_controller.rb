@@ -145,7 +145,7 @@ class ProductLicensesController < ApplicationController
     @selected_date1=params[:start_date].to_date
     @selected_date2=params[:end_date].to_date
     puts "#{@selected_date1 } ----------------#{@selected_date2 }"
-    @product_licenses=ProductLicense.where(:created_at => @selected_date1.beginning_of_day..@selected_date2.end_of_day)
+    @product_licenses=ProductLicense.where(:updated_date => @selected_date1.beginning_of_day..@selected_date2.end_of_day)
     respond_to do |format|
       format.html
       format.rss
